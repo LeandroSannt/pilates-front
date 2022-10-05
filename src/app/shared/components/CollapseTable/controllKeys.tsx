@@ -1,5 +1,4 @@
 import React from 'react';
-import { TemplateLine } from '../../interfaces/templates';
 
 import InputTable from './inputTable';
 import { KeyControllContainer } from './styles';

@@ -1,10 +1,9 @@
 import { createContext } from 'react';
-import { ISigninProps, IUser } from '../interfaces/user';
 
 type AuthContextType = {
-  user: IUser | null;
+  user: any | null;
 
-  signin: (body: ISigninProps) => Promise<boolean>;
+  signin: (body: any) => Promise<boolean>;
 
   signout: () => void;
 

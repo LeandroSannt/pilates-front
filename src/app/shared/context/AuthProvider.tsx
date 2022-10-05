@@ -1,11 +1,10 @@
 import { useMemo, useState } from 'react';
 
 import { useAuth } from '../hooks/auth/useAuth';
-import { ISigninProps, IUser } from '../interfaces/user';
 import { AuthContext } from './AuthContext';
 
 const AuthProvider = ({ children }: { children: JSX.Element }) => {
-  const [user, setUser] = useState<IUser | null>(null);
+  const [user, setUser] = useState<undefined | null>(null);
   const api = useAuth();
   const setToken = (token: string) => {
     localStorage.setItem('gerenciamento-aulas', token);
@@ -22,13 +21,9 @@ const AuthProvider = ({ children }: { children: JSX.Element }) => {
     }
   };
 
-  const signin = async (body: ISigninProps) => {
+  const signin = async (body: any) => {
     const data = await api.signin(body);
 
-    if (data.session_token) {
-      setToken(data.session_token);
-      return true;
-    }
     return false;
   };
 

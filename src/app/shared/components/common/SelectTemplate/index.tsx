@@ -1,8 +1,6 @@
 import { Listbox, Transition } from '@headlessui/react';
 import { CheckIcon, ChevronDownIcon } from '@heroicons/react/solid';
 import React, { Fragment, useState } from 'react';
-import { useQuery } from 'react-query';
-import { dataServices } from '../../../services/companies';
 
 import { boxButton, boxOptions, Container, containerStyle } from './styles';
 
@@ -103,3 +101,4 @@ const SelectTemplate: React.FC<ISelectProps> = ({
   );
 };
 export { SelectTemplate };
+
