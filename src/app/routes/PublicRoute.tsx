@@ -16,7 +16,7 @@ const PublicRoute = ({ children }:Props) => {
 
 
   if (!c) {
-    return <Navigate to="/companies" />;
+    return <Navigate to="/dashboard" />;
   }
 
   return <LoginLayout>{children}</LoginLayout>;

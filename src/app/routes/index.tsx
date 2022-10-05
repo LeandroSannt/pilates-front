@@ -9,22 +9,14 @@ import Planos from '../pages/Planos';
 import Remarcacoes from '../pages/Remarcacoes';
 import Reports from '../pages/Reports';
 import PrivateRoute from './PrivateRoute';
-import PublicRoute from './PublicRoute';
 
 const AppRoutes = () => {
   return (
         <BrowserRouter>
           <Routes>
-            <Route
-              path="/"
-              element={
-                <PublicRoute>
-                  <>ola mundo</>
-                </PublicRoute>
-              }
-            />
+            
               <Route
-                path="/dashboard"
+                path="/"
                 element={
                 <PrivateRoute>
                   <Dashboard/>
