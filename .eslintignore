@@ -1,0 +1,7 @@
+*.css
+*.svg
+# *.spec.tsx
+tailwind.config.js
+jest.config.ts
+svgTransform.js
+node_modules
