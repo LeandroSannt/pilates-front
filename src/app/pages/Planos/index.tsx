@@ -73,6 +73,7 @@ const Planos:React.FC = () =>{
         name_plan:Yup.string().required('Nome do plano obrigatorio'),
         value:Yup.string().required('Valor obrigatorio'),
         amount_installments:Yup.string().required('Quantidade de meses obrigatorio'),
+        percent_rate:Yup.string(),
       })
 
       await schema.validate(data,{
@@ -147,6 +148,11 @@ const Planos:React.FC = () =>{
                     <div className='alertMessage '>
                       <label htmlFor="" className="text-xs">Quantidade de meses referentes ao plano</label>
                       <Input placeholder="Quantidade de meses" type={'number'} name='amount_installments'/>
+                    </div>
+
+                    <div className='alertMessage '>
+                      <label htmlFor="" className="text-xs">Taxa por plano</label>
+                      <Input placeholder="Taxa em porcentagem" type={'number'} name='percent_rate'/>
                     </div>
                   </div>
                 }
