@@ -56,15 +56,15 @@ const Reports:React.FC = () =>{
   return(
     <Container>
       <h1 className='font-bold text-lg mb-5'>Relatorio financeiro</h1>
-      <div className='flex justify-between'>
+      <div className='md:flex-row flex-col flex justify-between'>
 
-      <div className='flex flex-col mb-5'>
+      <div className='flex flex-col  mb-5'>
         <span>Valor Total: <strong>{financial?.sum_value}</strong></span>
         <span>Valor a Descontar: <strong>{financial?.sum_percent_rate}</strong></span>
         <span>Valor a Receber:  <strong>{financial?.sum_amount_receivable}</strong></span>
       </div>
 
-      <button onClick={handleExport} className="btn text-white border-none  bg-secundary hover:bg-secundaryOpacity">Exportar relatorio</button>
+      <button onClick={handleExport} className="md:mb-0 mb-5 btn text-white border-none  bg-secundary hover:bg-secundaryOpacity">Exportar relatorio</button>
 
       </div>
       <div className="overflow-x-auto">
