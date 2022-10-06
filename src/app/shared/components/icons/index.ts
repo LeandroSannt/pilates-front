@@ -1,4 +1,5 @@
 export { default as AtSymbol } from './AtSymbol';
+export { AulasIcons } from './AulasIcons';
 export { default as Companies } from './Companies';
 export { default as Copy } from './Copy';
 export { default as Edit } from './Edit';
@@ -6,6 +7,9 @@ export { default as Google } from './Google';
 export { default as Identification } from './Identification';
 export { default as Logo } from './Logo';
 export { default as Pencil } from './Pencil';
+export { PlansIcon } from './PlansIcon';
+export { default as ReportIcon } from './ReportIcon';
+export { default as ResetIcon } from './ResetIcon';
 export { default as Templates } from './Templates';
 export { default as Trash } from './Trash';
 export { default as User } from './User';

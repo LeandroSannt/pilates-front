@@ -53,7 +53,7 @@ const Remarcacoes:React.FC = () =>{
       <Filters>
         <div  className='sm:flex-row  flex-col  flex justify-between w-full'>
           <div className=' sm:flex-row  flex-col flex items-center'>
-            <div className=' w-full'>
+            <div className='md:mb-0 mb-5 w-full'>
               <label htmlFor="">Aluno</label>
               <select onChange={(e) =>{setFilters({...filters,student_id:e.target.value})}} className="select select-primary w-full ">
                   <option value={'todos'}>Todos</option>

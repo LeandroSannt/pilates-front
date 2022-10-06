@@ -4,16 +4,16 @@ import { Fragment, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import Logo from '/assets/cintia_logo.png';
 
-import { Templates, User, Users } from '../../../shared/components/icons';
+import { AulasIcons, PlansIcon, ReportIcon, ResetIcon, User, Users, X } from '../../../shared/components/icons';
 import { Container } from './style';
 
 const navigation = [
   { name: 'ALUNOS', href: 'alunos', icon: Users, current: true },
-  { name: 'PLANOS', href: 'planos', icon: Templates, current: false },
-  { name: 'AULAS', href: 'aulas', icon: Templates, current: false },
-  { name: 'REPOSIÇÕES', href: 'remarcacoes', icon: Templates, current: false },
-  { name: 'FALTAS', href: 'faltas', icon: Templates, current: false },
-  { name: 'RELATORIO', href: 'relatorio', icon: Templates, current: false },
+  { name: 'PLANOS', href: 'planos', icon: PlansIcon, current: false },
+  { name: 'AULAS', href: 'aulas', icon: AulasIcons, current: false },
+  { name: 'REPOSIÇÕES', href: 'remarcacoes', icon: ResetIcon, current: false },
+  { name: 'FALTAS', href: 'faltas', icon: X, current: false },
+  { name: 'RELATORIO', href: 'relatorio', icon: ReportIcon, current: false },
 ];
 
 function classNames(...classes: any[]):any {
@@ -35,6 +35,7 @@ export default function Example({ children }: Props) {
             as="div"
             className="relative z-40 lg:hidden"
             onClose={setSidebarOpen}
+
           >
             <Transition.Child
               as={Fragment}
@@ -95,6 +96,7 @@ export default function Example({ children }: Props) {
                         <NavLink
                           key={item.name}
                           to={item.href}
+                          onClick={() =>{setSidebarOpen(false)}}
                           className={({ isActive }: any) => {
                             return classNames(
                               isActive
