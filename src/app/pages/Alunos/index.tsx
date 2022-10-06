@@ -94,7 +94,6 @@ const Alunos:React.FC = () =>{
       </Filters>
 
       <Table>
-        232
         {isFetching ? 
         
         <div className='flex items-center justify-center mt-28'>
