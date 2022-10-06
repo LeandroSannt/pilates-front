@@ -121,7 +121,6 @@ interface StatusProps{
 export const StatusContainer = styled.div<StatusProps>`
 width: 100px;
 height: 30px;
-background-color: blue;
 border-radius: 8px;
 display: flex;
 align-items: center;

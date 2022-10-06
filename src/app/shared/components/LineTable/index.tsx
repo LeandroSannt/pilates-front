@@ -1,5 +1,6 @@
 import moment from 'moment';
 import React from 'react';
+import { BiCake } from 'react-icons/bi';
 import { FiEdit } from 'react-icons/fi';
 import { MdOutlineAttachMoney } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
@@ -31,6 +32,7 @@ const LineTable:React.FC<LineProps> = ({renovation,birth_date,expiration_date,id
           </div>
           <div> 
             <span className='date response-none-620'>
+              <BiCake/>
               <p>{moment(birth_date).format('DD/MM/YYYY')}</p>
             </span>
 
