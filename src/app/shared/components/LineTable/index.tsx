@@ -65,7 +65,7 @@ const LineTable:React.FC<LineProps> = ({renovation,birth_date,expiration_date,id
 
         <div className=' w-full flex flex-col'>
           <div className='w-full flex flex-col justify-start items-start'>
-
+ 
             <span className='ml-0  mb-2 date response-none-620-active'>
               <p>{moment(birth_date).format('DD/MM/YYYY')}</p>
             </span>
