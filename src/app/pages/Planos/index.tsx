@@ -83,7 +83,7 @@ const Planos:React.FC = () =>{
         await updatePlan(data)
         popSucess('Plano atualizado com sucesso')
         setOpenModal(false)
-        navigate('/dashboard/planos')
+        navigate('/planos')
         
       }else{
         await createPlan(data)
@@ -118,7 +118,7 @@ const Planos:React.FC = () =>{
               <span onClick={() =>{
                 setOpenModal(false)
                 setTimeout(() =>{
-                  navigate('/dashboard/planos')
+                  navigate('/planos')
                 },300)
                 }
                 }><AiOutlineClose cursor={'pointer'}/></span>
@@ -165,7 +165,7 @@ const Planos:React.FC = () =>{
         </div>
 
           <button onClick={() =>{
-            navigate('/dashboard/planos')
+            navigate('/planos')
             setOpenModal(true)
           }}
            className="btn text-white border-none  bg-secundary hover:bg-secundaryOpacity">CADASTRAR PLANO</button>
@@ -186,7 +186,7 @@ const Planos:React.FC = () =>{
             )
           })
         :
-        <div className='font-bold flex items-center justify-center mt-48'>
+        <div className='font-bold flex items-center justify-center mt-28'>
           <h1>Nenhum Aluno Encontrado</h1>
         </div> 
       }

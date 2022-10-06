@@ -89,7 +89,7 @@ const Details:React.FC = () =>{
       }
 
       popSucess('Aluno registrado com sucesso')
-      navigate('/dashboard/alunos')
+      navigate('/alunos')
 
     }catch(err:any){
       if(err instanceof Yup.ValidationError){

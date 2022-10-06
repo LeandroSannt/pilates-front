@@ -167,7 +167,7 @@ const Remarcacoes:React.FC = () =>{
           <LineTable finishExchange={finishExchange} key={student.id} total_exchanges={student.total_exchanges} exchange={student.exchange} id={student.id} name={student.name} itemId={itemId}  setHasOpen={setHasOpen} telephone={student.telephone}/>
         ))
         :
-        <div className='font-bold flex items-center justify-center mt-48'>
+        <div className='font-bold flex items-center justify-center mt-28'>
           <h1>Nenhum Aluno Encontrado</h1>
         </div> 
       }

@@ -93,7 +93,7 @@ const Remarcacoes:React.FC = () =>{
           <LineTable key={lake.id} observation={lake.observation} dateLake={lake.date} name={lake.student.name}   gang={`${lake.gang.day} - ${lake.gang.time}`} />
         ))
           :
-        <div className='font-bold flex items-center justify-center mt-48'>
+        <div className='font-bold flex items-center justify-center mt-28'>
           <h1>Nenhuma falta Encontrado</h1>
         </div> 
         }

@@ -11,7 +11,7 @@ const popError = (text: ReactNode) => {
     pauseOnHover: true,
     draggable: true,
     progress: undefined,
-    className: 'w-[350px] -ml-20 bg-notSent text-white',
+    className: 'md:w-[350px] w-[250px]  bg-notSent text-white',
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -32,3 +32,4 @@ const popError = (text: ReactNode) => {
 };
 
 export { popError };
+

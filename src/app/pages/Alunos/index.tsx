@@ -108,7 +108,7 @@ const Alunos:React.FC = () =>{
             )
           })
         :
-        <div className='font-bold flex items-center justify-center mt-48'>
+        <div className='font-bold flex items-center justify-center mt-28  '>
           <h1>Nenhum Aluno Encontrado</h1>
         </div> 
       }

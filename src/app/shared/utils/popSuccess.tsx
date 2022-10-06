@@ -12,7 +12,7 @@ const popSucess = (text: ReactNode) => {
     pauseOnHover: true,
     draggable: true,
     progress: undefined,
-    className: 'w-[350px] -ml-14 bg-concluded text-white',
+    className: 'md:w-[350px] w-[250px]  bg-concluded text-white',
     icon: <CheckCircle className="w-6 h-6" />,
   });
 };
