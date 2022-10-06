@@ -96,7 +96,7 @@ const Alunos:React.FC = () =>{
       <Table>
         {isFetching ? 
         
-        <div className='flex items-center justify-center mt-48'>
+        <div className='flex items-center justify-center mt-28'>
           <SyncLoader  color='#1fcab3'/>
         </div> 
         :  

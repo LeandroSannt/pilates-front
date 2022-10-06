@@ -82,7 +82,7 @@ const Remarcacoes:React.FC = () =>{
       <Table>
         { isFetching ?
 
-        <div className='overflow flex items-center justify-center mt-48'>
+        <div className='overflow flex items-center justify-center mt-28'>
           <SyncLoader  color='#1fcab3'/>
         </div> 
 
