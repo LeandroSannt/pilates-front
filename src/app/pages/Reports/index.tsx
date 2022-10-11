@@ -1,5 +1,6 @@
 import React from 'react'
 import { useQuery } from 'react-query'
+import SyncLoader from 'react-spinners/SyncLoader'
 
 import { api } from '../../../config/api'
 import { FinancialProps } from '../../shared/interfaces/students'
@@ -8,7 +9,7 @@ import { Container } from './styles'
 
 const Reports:React.FC = () =>{
 
-  const {data:financial} = useQuery<FinancialProps>(['financial'], async () =>{
+  const {data:financial,isLoading} = useQuery<FinancialProps>(['financial'], async () =>{
     const response = await api.get('/report/financial')  
   
     return response.data
@@ -52,6 +53,11 @@ const Reports:React.FC = () =>{
 }
 
 
+if(isLoading){
+  <div className='flex items-center justify-center mt-28'>
+    <SyncLoader  color='#1fcab3'/>
+  </div> 
+}
 
   return(
     <Container>

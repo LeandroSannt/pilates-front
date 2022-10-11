@@ -91,10 +91,10 @@ export const ItemCard = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 80px;
+    width: 100px;
 
 
-    span:nth-child(1){
+    span:nth-child(2){
       width: 30px;
       height: 30px;
       border-radius: 3px;
@@ -108,7 +108,7 @@ export const ItemCard = styled.div`
 
     }
 
-    span:nth-child(2){
+    span:nth-child(3){
       color: red;
       background:rgba(202, 31, 62, .5);
       width: 30px;

@@ -18,6 +18,7 @@ export interface PlanProps{
   name_plan:string 
   updated_at:string 
   value:number 
+  percent_rate:number
 }
 
 

@@ -188,7 +188,7 @@ const Planos:React.FC = () =>{
         !!plans?.length ? 
         plans?.map((plan) =>{
             return(
-              <LineTablePlans setOpenModal={setOpenModal} value={plan.value}  key={plan.id} updateDate={plan.updated_at} id={plan.id} name={plan.name_plan}/>
+              <LineTablePlans percent={plan.percent_rate} setOpenModal={setOpenModal} value={plan.value}  key={plan.id} updateDate={plan.updated_at} id={plan.id} name={plan.name_plan}/>
             )
           })
         :

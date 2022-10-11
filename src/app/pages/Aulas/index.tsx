@@ -147,6 +147,21 @@ const Aulas:React.FC = () =>{
    
   }
 
+  const deleteAlunoByAula = async (aulaId:number, studentId:number) => {
+    await api.delete(`/gangStudents/delete-gang-students`,{
+      data:{
+        gang_id:aulaId,
+        student_id:studentId
+      }
+    })
+    
+    await queryClient.invalidateQueries("aulasAlunos")
+
+    popSucess(`Aluno removido`)
+
+
+  }
+
   const gangIds = aulasAlunos?.map((gang) => gang.id)
 
   const handleGang = async () =>{
@@ -345,6 +360,12 @@ const Aulas:React.FC = () =>{
                 <ItemCard className='md:text-lg text-sm' key={aluno.id}>
                 <p>{aluno.name}</p>
                 <p className='actions'>
+                  <span onClick={() =>{
+                    deleteAlunoByAula(aula.id,aluno.id)
+                   }}>
+                    <AiOutlineClose cursor={'pointer'} color="red"/>
+                  </span>
+
                   <span onClick={() =>{
                     getAluno({...aluno,gang_id:aula.id,type:'reposicao'})
                    }}>
