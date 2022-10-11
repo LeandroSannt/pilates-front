@@ -72,13 +72,16 @@ const Aulas:React.FC = () =>{
   //preciso marca no calendario o dia que não tem 5 alunos
 
   const {data:aulasAlunos} = useQuery<StudentsAulasProps[]>(['aulasAlunos',selectDayAula], async () =>{
-    const response = await api.get('/gangStudents/get-gang-students',{
-      params:{
-        day:selectDayAula
-      }
-    })  
-  
-    return response.data
+    if(selectDayAula){
+
+      const response = await api.get('/gangStudents/get-gang-students',{
+        params:{
+          day:selectDayAula
+        }
+      })  
+      
+      return response.data
+    }
   })
 
   const {data:students} = useQuery<StudentProps[]>(['studentsNoPaginated'], async () =>{
@@ -350,63 +353,72 @@ const Aulas:React.FC = () =>{
         </div>
       </header>
 
-      <section className=" grid md:grid-cols-2 grid-cols-1 gap-5">
-        {aulasAlunos?.map((aula) =>(
-          <Card key={aula.id}>
-            <h2>{aula.day.toLocaleUpperCase()} - {aula.time} Horas</h2>
-            <ContentCard>
-              <button style={{marginLeft:"auto"}} className='btn btn-outline btn-accent btn-sm'  onClick={() =>{setOpenRemarcacao({active:true,type:"cancelamentos"})}} >CANCELAR AULA</button>
-              {aula.studentGang.map((aluno) =>(
-                <ItemCard className='md:text-lg text-sm' key={aluno.id}>
-                <p>{aluno.name}</p>
-                <p className='actions'>
-                  <span onClick={() =>{
-                    deleteAlunoByAula(aula.id,aluno.id)
-                   }}>
-                    <AiOutlineClose cursor={'pointer'} color="red"/>
-                  </span>
+        
+        { !!aulasAlunos?.length ?
+          <section className=" grid md:grid-cols-2 grid-cols-1 gap-5">{
+            aulasAlunos?.map((aula) =>(
+              <Card key={aula.id}>
+                <h2>{aula.day.toLocaleUpperCase()} - {aula.time} Horas</h2>
+                <ContentCard>
+                  <button style={{marginLeft:"auto"}} className='btn btn-outline btn-accent btn-sm'  onClick={() =>{setOpenRemarcacao({active:true,type:"cancelamentos"})}} >CANCELAR AULA</button>
+                  {aula.studentGang.map((aluno) =>(
+                    <ItemCard className='md:text-lg text-sm' key={aluno.id}>
+                    <p>{aluno.name}</p>
+                    <p className='actions'>
+                      <span onClick={() =>{
+                        deleteAlunoByAula(aula.id,aluno.id)
+                      }}>
+                        <AiOutlineClose cursor={'pointer'} color="red"/>
+                      </span>
 
-                  <span onClick={() =>{
-                    getAluno({...aluno,gang_id:aula.id,type:'reposicao'})
-                   }}>
-                    R
-                  </span>
-                  <span onClick={() =>{
-                    getAluno({...aluno,gang_id:aula.id,type:'falta'})
-                   }}>
-                    F
-                  </span>
-                </p>
-                </ItemCard>
-              ))}
-                
-              {(aula.studentGang?.length < 5 && aulaId !== aula.id ) && 
-                <div onClick={() =>{
-                  setAulaId(aula.id)}} className='flex items-center mt-5  justify-center hover:scale-105 transition cursor-pointer'>
-                  <MdAdd/>
-                   Adicionar Aluno
-                </div>
-              }
+                      <span onClick={() =>{
+                        getAluno({...aluno,gang_id:aula.id,type:'reposicao'})
+                      }}>
+                        R
+                      </span>
+                      <span onClick={() =>{
+                        getAluno({...aluno,gang_id:aula.id,type:'falta'})
+                      }}>
+                        F
+                      </span>
+                    </p>
+                    </ItemCard>
+                  ))}
+                    
+                  {(aula.studentGang?.length < 5 && aulaId !== aula.id ) && 
+                    <div onClick={() =>{
+                      setAulaId(aula.id)}} className='flex items-center mt-5  justify-center hover:scale-105 transition cursor-pointer'>
+                      <MdAdd/>
+                      Adicionar Aluno
+                    </div>
+                  }
 
-              {(aulaId === aula.id && !!aulaId)  &&
-                <ItemCard>
-                <select onChange={(e) =>{setAlunoChangedByAula(e.target.value)}} className='m-2 select select-sm select-primary w-full max-w-[300px] h-6' name='aluno'>
-                {students?.map((student) =>(
-                  <option className={aula.id.toString()} value={student.id}>{student.name}</option>
-                ))}
-                </select>
+                  {(aulaId === aula.id && !!aulaId)  &&
+                    <ItemCard>
+                    <select onChange={(e) =>{setAlunoChangedByAula(e.target.value)}} className='m-2 select select-sm select-primary w-full max-w-[300px] h-6' name='aluno'>
+                    {students?.map((student) =>(
+                      <option className={aula.id.toString()} value={student.id}>{student.name}</option>
+                    ))}
+                    </select>
 
-                <div className='actionsAddAluno'>
-                  <MdCheck onClick={ () =>{addAlunoByAula(aula.id,aula.day,aula.time)}}/>
-                  <MdClose onClick={() =>setAulaId(null)}/>
-                </div>
-                </ItemCard>
-              }
+                    <div className='actionsAddAluno'>
+                      <MdCheck onClick={ () =>{addAlunoByAula(aula.id,aula.day,aula.time)}}/>
+                      <MdClose onClick={() =>setAulaId(null)}/>
+                    </div>
+                    </ItemCard>
+                  }
 
-            </ContentCard>          
-          </Card>
-        ))}
-      </section>
+                </ContentCard>          
+              </Card>
+            ))}
+          </section>
+
+        :
+        <div className='font-bold flex items-center justify-center mt-28  '>
+          <h1>Nenhuma Aula Registrada</h1>
+        </div> 
+      
+      }
     </Container>
   )
 }
