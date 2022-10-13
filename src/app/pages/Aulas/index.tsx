@@ -65,10 +65,6 @@ const Aulas:React.FC = () =>{
   const [selectDayAula, setSelectDayAula] = useState('todos')
   const [gangProps, setHandleGangProps] = useState<IhandleGang>()
 
-
-
-
-
   //preciso marca no calendario o dia que não tem 5 alunos
 
   const {data:aulasAlunos} = useQuery<StudentsAulasProps[]>(['aulasAlunos',selectDayAula], async () =>{
