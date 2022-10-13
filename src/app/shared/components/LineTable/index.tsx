@@ -72,7 +72,7 @@ const LineTable:React.FC<LineProps> = ({renovation,birth_date,expiration_date,id
 
             <span className= 'ml-0  mb-2 date response-none-820-active response-none-1200-active'>
               <MdOutlineAttachMoney/>
-              <p>{expiration_date}</p>
+              <p>{moment(expiration_date).format('DD/MM/YYYY')}</p>
             </span>
 
             <span className=' ml-0  mb-2 whitespace-nowrap response-none-1200-active' >

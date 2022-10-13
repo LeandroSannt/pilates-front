@@ -180,7 +180,7 @@ const Details:React.FC = () =>{
             
             <GroupInput>
               <label   htmlFor="pla_id">Dia do vencimento do plano *</label>
-              <Input id="plan_expiration_day" min={1} max={31} type='text' name='plan_expiration_day' placeholder="Dia do vencimento" />
+              <Input  id="plan_expiration_day" min={1} max={31} type='date' name='plan_expiration_day' placeholder="Dia do vencimento" />
             </GroupInput>
           </div>
         </section>
