@@ -22,6 +22,8 @@ interface LineProps{
 const LineTable:React.FC<LineProps> = ({renovation,birth_date,expiration_date,id,name,status,planTotalMonths,currentMonthPlan}) =>{
   const navigate = useNavigate()
 
+  console.log(expiration_date)
+
   return(
     
     <Container >
@@ -38,7 +40,7 @@ const LineTable:React.FC<LineProps> = ({renovation,birth_date,expiration_date,id
 
             <span className='date response-none-820 response-none-1200'>
               <MdOutlineAttachMoney/>
-              <p>{moment(expiration_date).format('DD/MM/YYYY')}</p>
+              <p>{expiration_date}</p>
             </span>
 
             <span className='whitespace-nowrap response-none-1200' >
