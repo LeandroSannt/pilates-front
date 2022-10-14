@@ -104,7 +104,17 @@ const Alunos:React.FC = () =>{
         !!students.length ? 
         studantesPaginated?.data?.map((student) =>{
             return(
-              <LineTable renovation ={renovationPlan} key={student.id} currentMonthPlan={student.current_month_plan} planTotalMonths={student.plan.amount_installments} status={student.status} expiration_date={student.expiration_date} birth_date={student.birth_date} id={student.id} name={student.name}/>
+              <LineTable 
+              renovation ={renovationPlan} 
+              key={student.id} 
+              currentMonthPlan={student.current_month_plan} 
+              planTotalMonths={student.plan.amount_installments} 
+              status={student.status} 
+              expiration_date={student.expiration_date} 
+              plan_expiration_day={student.plan_expiration_day} 
+              birth_date={student.birth_date} 
+              id={student.id} 
+              name={student.name}/>
             )
           })
         :

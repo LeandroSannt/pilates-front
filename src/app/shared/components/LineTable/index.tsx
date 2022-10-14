@@ -12,17 +12,17 @@ interface LineProps{
   id:number
   name:string
   birth_date:string
-  expiration_date:string
+  plan_expiration_day:string
   status:string
   planTotalMonths:number
   currentMonthPlan:string
   renovation(value:number):void
+  expiration_date:string
 }
 
-const LineTable:React.FC<LineProps> = ({renovation,birth_date,expiration_date,id,name,status,planTotalMonths,currentMonthPlan}) =>{
+const LineTable:React.FC<LineProps> = ({renovation,expiration_date,birth_date,plan_expiration_day,id,name,status,planTotalMonths,currentMonthPlan}) =>{
   const navigate = useNavigate()
 
-  console.log(expiration_date)
 
   return(
     
@@ -40,11 +40,11 @@ const LineTable:React.FC<LineProps> = ({renovation,birth_date,expiration_date,id
 
             <span className='date response-none-820 response-none-1200'>
               <MdOutlineAttachMoney/>
-              <p>{expiration_date}</p>
+              <p>{moment(plan_expiration_day).format('DD/MM/YYYY') }</p>
             </span>
 
             <span className='whitespace-nowrap response-none-1200' >
-              {currentMonthPlan} de  {planTotalMonths}
+              {expiration_date} de  {planTotalMonths}
             </span>
             
             <span className='response-none-476 mr-5  md:mr-0 '>
@@ -74,11 +74,11 @@ const LineTable:React.FC<LineProps> = ({renovation,birth_date,expiration_date,id
 
             <span className= 'ml-0  mb-2 date response-none-820-active response-none-1200-active'>
               <MdOutlineAttachMoney/>
-              <p>{expiration_date}</p>
+              <p>{moment(plan_expiration_day).format('DD/MM/YYYY')}</p>
             </span>
 
             <span className=' ml-0  mb-2 whitespace-nowrap response-none-1200-active' >
-              {currentMonthPlan} de  {planTotalMonths}
+              {expiration_date} de  {planTotalMonths}
             </span>
 
             <span className='ml-0 mb-2 response-none-476-active'>
