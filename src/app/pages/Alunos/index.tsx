@@ -57,7 +57,6 @@ const Alunos:React.FC = () =>{
     await queryClient.invalidateQueries("students")
   }
 
-
   return(
     <Container>
       <main>

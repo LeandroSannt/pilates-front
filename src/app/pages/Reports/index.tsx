@@ -89,7 +89,7 @@ if(isLoading){
             {financial?.studentExpiration.map((financialProps) =>(
               <tr>
               <td>{financialProps.name}</td>
-              <td>{financialProps.current_month_plan} - {financialProps.plan.amount_installments}</td>
+              <td>{financialProps.expiration_date} / {financialProps.plan.amount_installments}</td>
               <td>
                 {
                   new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(Number(financialProps.plan.value.toFixed(2)))

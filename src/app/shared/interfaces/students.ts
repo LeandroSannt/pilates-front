@@ -39,6 +39,7 @@ export interface StudentProps{
   telephone:string 
   telephone_emergency:string 
   updated_at:string 
+  date_start_plan:string
 }
 
 export interface StudentsPaginated{

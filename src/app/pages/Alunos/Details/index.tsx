@@ -114,7 +114,7 @@ const Details:React.FC = () =>{
 
   return(
     <Container>
-      <Form ref={formRef} initialData={{...student,birth_date:moment(student?.birth_date).format('YYYY-MM-DD')}} onSubmit={handleSubmit}>
+      <Form ref={formRef} initialData={{...student,birth_date:moment(student?.birth_date).format('YYYY-MM-DD'),date_start_plan:moment(student?.date_start_plan).format('YYYY-MM-DD')}} onSubmit={handleSubmit}>
         <section className="mb-5">
           <div className=" flex justify-between items-center">
             <h2>Dados Pessoais</h2>
@@ -182,6 +182,13 @@ const Details:React.FC = () =>{
               <label   htmlFor="pla_id">Dia do vencimento do plano *</label>
               <Input id="plan_expiration_day" min={1} max={31} type='date' name='plan_expiration_day' placeholder="Dia do vencimento" />
             </GroupInput>
+
+            {/* {id && 
+            <GroupInput>
+              <label   htmlFor="pla_id">Dia do inicio do plano</label>
+              <Input id="date_start_plan" min={1} max={31} type='date' name='date_start_plan' placeholder="Inicio do plano" />
+            </GroupInput>
+            } */}
           </div>
         </section>
         <section className="mb-5">

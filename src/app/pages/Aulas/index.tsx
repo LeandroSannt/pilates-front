@@ -358,7 +358,7 @@ const Aulas:React.FC = () =>{
                 <ContentCard>
                   <button style={{marginLeft:"auto"}} className='btn btn-outline btn-accent btn-sm'  onClick={() =>{setOpenRemarcacao({active:true,type:"cancelamentos"})}} >CANCELAR AULA</button>
                   {aula.studentGang.map((aluno) =>(
-                    <ItemCard className='md:text-lg text-sm' key={aluno.id}>
+                    <ItemCard className=' md:text-lg text-sm' key={aluno.id}>
                     <p>{aluno.name}</p>
                     <p className='actions'>
                       <span onClick={() =>{
@@ -391,7 +391,7 @@ const Aulas:React.FC = () =>{
 
                   {(aulaId === aula.id && !!aulaId)  &&
                     <ItemCard>
-                    <select onChange={(e) =>{setAlunoChangedByAula(e.target.value)}} className='m-2 select select-sm select-primary w-full max-w-[300px] h-6' name='aluno'>
+                    <select onChange={(e) =>{setAlunoChangedByAula(e.target.value)}} className='flex-1 m-2 select select-sm select-primary w-full max-w-[300px] h-6' name='aluno'>
                     {students?.map((student) =>(
                       <option className={aula.id.toString()} value={student.id}>{student.name}</option>
                     ))}
