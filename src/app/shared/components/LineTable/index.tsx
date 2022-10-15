@@ -30,7 +30,7 @@ const LineTable:React.FC<LineProps> = ({renovation,expiration_date,birth_date,pl
       <div tabIndex={0} className="w-full flex justify-between flex-col  collapse collapse-arrow ">
         <div className=" flex justify-between collapse-title ">
           <div className='whitespace-nowrap'>
-            <p>{name}</p>
+            <p className='pontinhos'>{name}</p>
           </div>
           <div> 
             <span className='date response-none-620'>

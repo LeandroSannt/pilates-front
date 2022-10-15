@@ -13,6 +13,16 @@ justify-content: space-between;
 transition: all 400ms;
 flex-direction: column;
 
+
+
+@media (max-width: 620px) {
+  .pontinhos{
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
 div{
   display: flex;
   align-items: center;
