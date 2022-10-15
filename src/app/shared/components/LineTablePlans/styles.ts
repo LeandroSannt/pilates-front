@@ -4,7 +4,7 @@ import styled from 'styled-components';
 export const Container = styled.div`
 
 width: 100%;
-min-width: 530px;
+min-width: 600px;
 height: 60px;
 border-radius: 4px;
 background-color: rgba(31, 202, 179, .4);
