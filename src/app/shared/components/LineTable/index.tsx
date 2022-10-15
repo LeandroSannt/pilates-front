@@ -69,6 +69,8 @@ const LineTable:React.FC<LineProps> = ({renovation,expiration_date,birth_date,pl
           <div className='w-full flex flex-col justify-start items-start'>
  
             <span className='ml-0  mb-2 date response-none-620-active'>
+              <BiCake/>
+
               <p> {birth_date ?  moment(birth_date).format('DD/MM') : 'Sem data'}</p>
             </span>
 
