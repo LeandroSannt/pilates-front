@@ -22,7 +22,7 @@ const Alunos:React.FC = () =>{
   const [filters,setFilters] = useState<FilterProps>()
   const [page,setPage] = useState<string | null | undefined>('/?page=1')
   
-  const {data:studantesPaginated,refetch,isLoading,isFetching} = useQuery<StudentsPaginated>(['students',page,filters?.planId,filters?.status,filters?.studantName], async () =>{
+  const {data:studantesPaginated,refetch,isFetching} = useQuery<StudentsPaginated>(['students',page,filters?.planId,filters?.status,filters?.studantName], async () =>{
     const response = await api.get(`/students/paginated${page}`,{
     params:{
       status:filters?.status,
@@ -50,7 +50,6 @@ const Alunos:React.FC = () =>{
       setPage(studantesPaginated?.meta.previous_page_url)
     }
   }
-
 
   const renovationPlan = async (id:number) =>{
     await api.patch('/students/renovation-plan',{id:id})  

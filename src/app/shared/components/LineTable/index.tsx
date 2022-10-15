@@ -48,12 +48,12 @@ const LineTable:React.FC<LineProps> = ({renovation,expiration_date,birth_date,pl
             </span>
             
             <span className='response-none-476 mr-5  md:mr-0 '>
-              <Status status={status as any}/>
+            <Status status={status === 'a vencer' ? 'aVencer' : status as any}/>
             </span>
-
+{/* 
             <span className='response-none-1200' >
               <button onClick={() =>{renovation(id)}} className="btn btn-active btn-primary text-white transition btn-sm hover:bg-inherit hover:text-slate-500">Renovar plano</button>
-            </span>
+            </span> */}
 
             <span 
               onClick={async () =>{
@@ -84,13 +84,13 @@ const LineTable:React.FC<LineProps> = ({renovation,expiration_date,birth_date,pl
             </span>
 
             <span className='ml-0 mb-2 response-none-476-active'>
-              <Status status={status as any}/>
+            <Status status={status === 'a vencer' ? 'aVencer' : status as any}/>
             </span>
           </div>
 
-          <span className='response-none-1200-active' >
+          {/* <span className='response-none-1200-active' >
             <button onClick={() =>{renovation(id)}} className="btn btn-active btn-primary text-white transition btn-sm hover:bg-inherit hover:text-slate-500">Renovar plano</button>
-          </span>
+          </span> */}
         </div>
 
         </div>

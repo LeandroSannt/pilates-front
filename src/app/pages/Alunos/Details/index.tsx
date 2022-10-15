@@ -53,9 +53,9 @@ const Details:React.FC = () =>{
   }
 
   const updateStudant = async (data:FormData) =>{
-    const response = await api.put(`students/${id}`,data)
-
+    const response = await api.put(`students/${id}/updateStatus`,data)
     await queryClient.invalidateQueries('student')
+    await queryClient.invalidateQueries('students')
     return response
    }
 
@@ -84,12 +84,20 @@ const Details:React.FC = () =>{
       
       if(id){
         await updateStudant(data)
+        Promise.all([
+        await updateStudant(data),
+        await queryClient.invalidateQueries('student')
+        ])
+
       }else{
         await createStudent(data)
+        await queryClient.invalidateQueries('students')
       }
 
       popSucess('Aluno registrado com sucesso')
+      
       navigate('/alunos')
+      await queryClient.invalidateQueries('students')
 
     }catch(err:any){
       if(err instanceof Yup.ValidationError){

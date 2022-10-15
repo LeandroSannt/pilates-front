@@ -111,12 +111,20 @@ const statusVariations={
   inativo:{
     background:'rgba(202, 31, 62, .4)',
     color:'red'
+  },
+  vencido:{
+    background:'rgb(230, 222, 18)',
+    color:'#706e2f'
+  },
+  aVencer:{
+    background:'rgb(44, 38, 79, .8)',
+    color:'#9e92de'
   }
 }
 
 
 interface StatusProps{
-  status :"ativo" | 'inativo'
+  status :"ativo" | 'inativo' | 'vencido' | 'aVencer'
 }
 export const StatusContainer = styled.div<StatusProps>`
 width: 100px;
