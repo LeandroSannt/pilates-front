@@ -17,7 +17,7 @@ flex-direction: column;
 
 @media (max-width: 620px) {
   .pontinhos{
-    max-width: 100px;
+    max-width: 140px;
     overflow: hidden;
     text-overflow: ellipsis;
   }
