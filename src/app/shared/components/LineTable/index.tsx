@@ -46,8 +46,8 @@ const LineTable:React.FC<LineProps> = ({renovation,expiration_date,birth_date,pl
             <span className='whitespace-nowrap response-none-1200' >
               {expiration_date} de  {planTotalMonths}
             </span>
-            
-            <span className='response-none-476 mr-5  md:mr-0 '>
+            {/* response-none-476 mr-5  md:mr-0  */}
+            <span className='mr-5  md:mr-0 '>
             <Status status={status === 'a vencer' ? 'aVencer' : status as any}/>
             </span>
 {/* 
@@ -83,9 +83,9 @@ const LineTable:React.FC<LineProps> = ({renovation,expiration_date,birth_date,pl
               {expiration_date} de  {planTotalMonths}
             </span>
 
-            <span className='ml-0 mb-2 response-none-476-active'>
+            {/* <span className='ml-0 mb-2 response-none-476-active'>
             <Status status={status === 'a vencer' ? 'aVencer' : status as any}/>
-            </span>
+            </span> */}
           </div>
 
           {/* <span className='response-none-1200-active' >
