@@ -74,7 +74,7 @@ const Details:React.FC = () =>{
         name:Yup.string().required('Nome do aluno obrigatorio'),
         plan_id:Yup.string().required('Selecione um plano'),
         registration:Yup.string().required('Matricula obrigatoria'),
-        plan_expiration_day:Yup.string().required('Selecione entre 1 e 31')
+        // plan_expiration_day:Yup.string().required('Selecione entre 1 e 31')
         
       })
 
