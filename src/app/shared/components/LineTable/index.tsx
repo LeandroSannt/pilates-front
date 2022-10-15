@@ -35,12 +35,12 @@ const LineTable:React.FC<LineProps> = ({renovation,expiration_date,birth_date,pl
           <div> 
             <span className='date response-none-620'>
               <BiCake/>
-              <p>{moment(birth_date).format('DD/MM/YYYY')}</p>
+              <p>{birth_date ?  moment(birth_date).format('DD/MM') : 'Sem data'}</p>
             </span>
 
             <span className='date response-none-820 response-none-1200'>
               <MdOutlineAttachMoney/>
-              <p>{moment(plan_expiration_day).format('DD/MM/YYYY') }</p>
+              <p>{plan_expiration_day ? moment(plan_expiration_day).format('DD/MM/YYYY') : 'Sem data'}</p>
             </span>
 
             <span className='whitespace-nowrap response-none-1200' >
@@ -69,12 +69,12 @@ const LineTable:React.FC<LineProps> = ({renovation,expiration_date,birth_date,pl
           <div className='w-full flex flex-col justify-start items-start'>
  
             <span className='ml-0  mb-2 date response-none-620-active'>
-              <p>{moment(birth_date).format('DD/MM/YYYY')}</p>
+              <p> {birth_date ?  moment(birth_date).format('DD/MM') : 'Sem data'}</p>
             </span>
 
             <span className= 'ml-0  mb-2 date response-none-820-active response-none-1200-active'>
               <MdOutlineAttachMoney/>
-              <p>{moment(plan_expiration_day).format('DD/MM/YYYY')}</p>
+              <p>{plan_expiration_day ? moment(plan_expiration_day).format('DD/MM/YYYY') : 'Sem data'}</p>
             </span>
 
             <span className=' ml-0  mb-2 whitespace-nowrap response-none-1200-active' >

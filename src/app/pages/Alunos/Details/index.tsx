@@ -139,7 +139,7 @@ const Details:React.FC = () =>{
 
             <GroupInput>
               <label  htmlFor="name">Data de anivesario</label>
-              <Input id ="birth_date" name='birth_date' placeholder="data"  type={'date'}/>
+              <Input id ="birth_date" name='birth_date' placeholder="data"  type={'text'}/>
             </GroupInput>
           </div>
 
