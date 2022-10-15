@@ -8,7 +8,7 @@ interface IStatusProps{
 }
 const Status:React.FC<IStatusProps> = ({status}) =>{
   return(
-    <StatusContainer status={status}>
+    <StatusContainer className='w-14 text-xs md:text-base  md:w-28 ' status={status}>
       {status === 'aVencer' ? 'a vencer' : status}
     </StatusContainer>
   )

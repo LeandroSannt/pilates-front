@@ -127,7 +127,6 @@ interface StatusProps{
   status :"ativo" | 'inativo' | 'vencido' | 'aVencer'
 }
 export const StatusContainer = styled.div<StatusProps>`
-width: 100px;
 height: 30px;
 border-radius: 8px;
 display: flex;
