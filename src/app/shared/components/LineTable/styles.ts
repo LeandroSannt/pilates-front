@@ -116,19 +116,19 @@ export const NavLink = styled(Link)`
 const statusVariations={
   ativo:{
     background:"rgba(31, 202, 179, .6)",
-    color:'green'
-  },
-  inativo:{
-    background:'rgba(202, 31, 62, .4)',
-    color:'red'
+    color:'black'
   },
   vencido:{
-    background:'rgb(230, 222, 18)',
-    color:'#706e2f'
+    background:'rgba(242, 5, 5,.8)',
+    color:'black'
   },
   aVencer:{
-    background:'rgb(44, 38, 79, .8)',
-    color:'#9e92de'
+    background:'rgb(230, 222, 18)',
+    color:'black'
+  },
+  inativo:{
+    background:'rgb(195, 195, 195)',
+    color:'black'
   }
 }
 
@@ -142,6 +142,8 @@ border-radius: 8px;
 display: flex;
 align-items: center;
 justify-content: center;
+/* border:solid black 1px; */
+box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
 
 ${(props) => statusVariations[props.status]}
 
