@@ -19,7 +19,7 @@ const Remarcacoes:React.FC = () =>{
   const [page,setPage] = useState<string | null | undefined>('/?page=1')
   const [filters,setFilters] = useState<FilterProps>()
   
-  const {data:gangLake,isFetching} = useQuery<GangLakePaginated>(['gangLake',page,filters?.student_id,filters?.date], async () =>{
+  const {data:gangLake,isLoading} = useQuery<GangLakePaginated>(['gangLake',page,filters?.student_id,filters?.date], async () =>{
     const response = await api.get(`/gangLakes/listPaginated${page}`,{
       params:{
         student_id:filters?.student_id,
@@ -80,7 +80,7 @@ const Remarcacoes:React.FC = () =>{
       </Filters>
 
       <Table>
-        { isFetching ?
+        { isLoading ?
 
         <div className='overflow flex items-center justify-center mt-28'>
           <SyncLoader  color='#1fcab3'/>

@@ -22,7 +22,7 @@ const Alunos:React.FC = () =>{
   const [filters,setFilters] = useState<FilterProps>()
   const [page,setPage] = useState<string | null | undefined>('/?page=1')
   
-  const {data:studantesPaginated,refetch,isFetching} = useQuery<StudentsPaginated>(['students',page,filters?.planId,filters?.status,filters?.studantName], async () =>{
+  const {data:studantesPaginated,refetch,isFetching,isLoading} = useQuery<StudentsPaginated>(['students',page,filters?.planId,filters?.status,filters?.studantName], async () =>{
     const response = await api.get(`/students/paginated${page}`,{
     params:{
       status:filters?.status,
@@ -92,7 +92,7 @@ const Alunos:React.FC = () =>{
       </Filters>
 
       <Table>
-        {isFetching ? 
+        {isLoading ? 
         
         <div className='flex items-center justify-center mt-28'>
           <SyncLoader  color='#1fcab3'/>

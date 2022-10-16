@@ -32,7 +32,7 @@ const Planos:React.FC = () =>{
 
   const [plan,setPlan] = useState<PlanProps>()
 
-  const {data:plans,isFetching} = useQuery<PlanProps[]>(['plans'], async () =>{
+  const {data:plans,isLoading} = useQuery<PlanProps[]>(['plans'], async () =>{
     const response = await api.get('/plans')  
   
     return response.data
@@ -178,7 +178,7 @@ const Planos:React.FC = () =>{
       </Filters>
 
       <Table>
-        {isFetching ? 
+        {isLoading ? 
         
         <div className='flex items-center justify-center mt-28'>
           <SyncLoader  color='#1fcab3'/>

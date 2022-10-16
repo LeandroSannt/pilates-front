@@ -36,7 +36,7 @@ const Remarcacoes:React.FC = () =>{
   const formRef= useRef<FormHandles>(null)
 
 
-  const {data:studentExchange,isFetching} = useQuery<ExchangedPaginated>(['exchanges',page,filters?.student_id], async () =>{
+  const {data:studentExchange,isFetching,isLoading} = useQuery<ExchangedPaginated>(['exchanges',page,filters?.student_id], async () =>{
     const response = await api.get(`/exchanges/listPaginated${page}`,{
       params:{
         student_id:filters?.student_id
@@ -155,7 +155,7 @@ const Remarcacoes:React.FC = () =>{
 
       <Table>
 
-        {isFetching ? 
+        {isLoading ? 
         
         <div className='flex items-center justify-center mt-28'>
           <SyncLoader  color='#1fcab3'/>

@@ -53,11 +53,14 @@ const Reports:React.FC = () =>{
 }
 
 
-if(isLoading){
-  <div className='flex items-center justify-center mt-28'>
-    <SyncLoader  color='#1fcab3'/>
-  </div> 
-}
+  if(isLoading){
+
+    return(
+      <div className='flex items-center justify-center mt-28'>
+        <SyncLoader  color='#1fcab3'/>
+      </div> 
+      )
+  }
 
   return(
     <Container>
