@@ -11,13 +11,13 @@ import makeAnimated from 'react-select/animated';
 
 import { api } from '../../../config/api';
 import { queryClient } from '../../../config/query-Client';
-import SelectForm from '../../shared/components/Form/Select';
+import { Input } from '../../shared/components/Form/Input/InputText';
 import { DefaultModal } from '../../shared/components/modals/DefaultModal';
-import { StudentProps, StudentsAulasProps } from '../../shared/interfaces/students';
+import { IClasseGangs, StudentProps } from '../../shared/interfaces/students';
 import { popError } from '../../shared/utils/popError';
 import { popInfo } from '../../shared/utils/PopInfo';
 import { popSucess } from '../../shared/utils/popSuccess';
-import { Card, Container, ContentCard, CreateAula, ItemCard } from './styles';
+import { Card, Container, ContentCard, CreateAula, ItemCard, Turma } from './styles';
 
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -31,8 +31,7 @@ interface IAlunoProps{
 
 
   interface DataProps{
-    horario:string
-    dia:string
+    name:string
   }
 
   interface selectProps{
@@ -53,6 +52,17 @@ interface IAlunoProps{
     active:boolean
   }
 
+  interface changeValuesProps{
+    day?:string
+    time?:string
+  }
+
+
+  const nameForm= [
+    {day:'dia',time:"horario"},
+    {day:'dia',time:"horario"},
+  ]
+
 const Aulas:React.FC = () =>{
   const animatedComponents = makeAnimated();
   const [startDate, setStartDate] = useState(new Date());
@@ -65,12 +75,18 @@ const Aulas:React.FC = () =>{
   const [selectDayAula, setSelectDayAula] = useState('todos')
   const [gangProps, setHandleGangProps] = useState<IhandleGang>()
 
+  const [nameForm,setNameForm] = useState(
+    [
+      {day:'',time:''},
+    ]
+  )
+
   //preciso marca no calendario o dia que não tem 5 alunos
 
-  const {data:aulasAlunos} = useQuery<StudentsAulasProps[]>(['aulasAlunos',selectDayAula], async () =>{
+  const {data:turmasAulas} = useQuery<IClasseGangs[]>(['aulasAlunos',selectDayAula], async () =>{
     if(selectDayAula){
 
-      const response = await api.get('/gangStudents/get-gang-students',{
+      const response = await api.get('/classes/getClasseGangs',{
         params:{
           day:selectDayAula
         }
@@ -97,16 +113,15 @@ const Aulas:React.FC = () =>{
 
   const handleSubmit = async (data:DataProps) =>{
     try{
-
       const alunoIds = sendAlunos.map((aluno) =>{
         return aluno!.value
       })
 
       //post data, sendAlunos
-      await api.post('/gangs/store-many',{
-        day:data.dia,
-        time:data.horario,
-        student_id:alunoIds
+      await api.post('/classes/storeGangs',{
+        student_id:alunoIds,
+        gangs:nameForm,
+        name:data.name
       })  
 
       await queryClient.invalidateQueries("aulasAlunos")
@@ -114,6 +129,7 @@ const Aulas:React.FC = () =>{
       popSucess('Aula registrada com sucesso')
       setOpenModalCreate(false)
       setSendAlunos([])
+
     }catch(err:any){
       if(err.response){
         popInfo(err.response.data)
@@ -161,7 +177,7 @@ const Aulas:React.FC = () =>{
 
   }
 
-  const gangIds = aulasAlunos?.map((gang) => gang.id)
+  const gangIds = turmasAulas?.map((gang) => gang.id)
 
   const handleGang = async () =>{
 
@@ -209,9 +225,30 @@ const Aulas:React.FC = () =>{
 
   }
 
+  const duplicateInput = () =>{
+    setNameForm(oldArray => [...oldArray, {day:'',time:''}]);
+  }
+
+  const changeValues = ({time,day}:changeValuesProps, index:number) =>{
+    if(time){
+      nameForm[index].time = time
+    }
+    
+    if(day){
+      nameForm[index].day = day
+    }
+  }
+
+  const removeLineInput = (index:number) =>{
+    const updateList = [...nameForm]
+    const c = updateList.splice(index,1)
+    setNameForm(updateList)
+
+  }
+
+
   return(
     <Container>
-
       <DefaultModal
         width="90%"
         margin="auto 0"
@@ -265,7 +302,7 @@ const Aulas:React.FC = () =>{
           <div className='h-96 flex flex-col items-center'>
             <div className=' flex justify-between w-full'>
               <h1 className='text-center mb-5'>
-                Cadastar aula
+                Cadastar Turma
               </h1>
               <span onClick={() =>{setOpenModalCreate(false)}}><AiOutlineClose cursor={'pointer'}/></span>
             </div>
@@ -273,55 +310,80 @@ const Aulas:React.FC = () =>{
             <CreateAula>
               <Form className=''  onSubmit={handleSubmit}>
                 <div>
+                  <div className='flex justify-between gap-5 w-full'>
+                    <div className='mb-5 w-full'>
+                      <label htmlFor="">Nome da Turma</label>
+                      <Input placeholder='Nome da turma' name={'name'}/>
 
-                <div className='flex justify-between gap-5 w-full'>
-
-                  <div className='mb-5 w-full'>
-                    <label htmlFor="">Horário</label>
-                    <SelectForm name='horario'>
-                      <option value="6"> 6 horas</option>
-                      <option value="7"> 7 horas</option>
-                      <option value="8"> 8 horas</option>
-                      <option value="9"> 9 horas</option>
-                      <option value="10"> 10 horas</option>
-                      <option value="11"> 11 horas</option>
-                    </SelectForm>
-
+                    </div>
                   </div>
 
-                  <div className='mb-5 w-full'>
-                    <label htmlFor="">Dia</label>
-                    <SelectForm name='dia'>
-                      <option value="segunda">Segunda</option>
-                      <option value="terca">Terça</option>
-                      <option value="quarta">Quarta</option>
-                      <option value="quinta">Quinta</option>
-                      <option value="sexta">Sexta</option>
-                    </SelectForm>
+                  <h1 className='mb-5'>Aulas</h1>
+
+                  {nameForm.map((item,index) =>{
+                    return(
+                    <div key={index} className=' flex items-center justify-between gap-5 w-full'>
+                      <div className='mb-5 w-full'>
+                        <label htmlFor="">Horário</label>
+                        <select
+                          onChange={(e) =>{changeValues({time:e.target.value},index)}}
+                          className={`select select-primary w-full`} 
+                          >
+                          <option value="" selected disabled hidden>Selecione um horario</option>
+                          <option value="6"> 6 horas</option>
+                          <option value="7"> 7 horas</option>
+                          <option value="8"> 8 horas</option>
+                          <option value="9"> 9 horas</option>
+                          <option value="17"> 17 horas</option>
+                          <option value="18"> 18 horas</option>
+                          <option value="19"> 19 horas</option>
+                        </select>
+
+                      </div>
+
+                      <div className='mb-5 w-full'>
+                        <label htmlFor="">Dia</label>
+                        <select 
+                          onChange={(e) =>{changeValues({day:e.target.value},index)}}
+                          className={`select select-primary w-full`} 
+                          >
+                          <option value="" selected disabled hidden>Selecione um dia</option>
+                          <option value="segunda">Segunda</option>
+                          <option value="terca">Terça</option>
+                          <option value="quarta">Quarta</option>
+                          <option value="quinta">Quinta</option>
+                          <option value="sexta">Sexta</option>
+                        </select>
+                      </div>
+
+                      <AiOutlineClose onClick={() =>{removeLineInput(index)}} color='red' size={50}/>
+                    </div>
+                    )
+                  })}
+                  
+                  <button type='button' onClick={duplicateInput} className=" btn text-secundary    bg-inherit border-dashed border-secundary hover:bg-inherit mb-5 w-full">+</button>
+
+                  <div className='alertMessage mb-5'>
+                    <label htmlFor="">Selecione os alunos</label>
+                    <Select
+                      maxMenuHeight={200}
+                      onChange={(e) =>getAlunoSelected(e as any)}
+                      closeMenuOnSelect={false}
+                      components={animatedComponents}
+                      placeholder="Selecione 5 alunos"
+                      isMulti
+                      options={students?.map((student) =>{
+                        return {
+                          value:student.id,
+                          label:student.name
+                        }
+                      })}
+                      className=" select-primary"
+                    />
                   </div>
                 </div>
 
-                <div className='alertMessage mb-5'>
-                  <label htmlFor="">Selecione os alunos</label>
-                  <Select
-                    maxMenuHeight={200}
-                    onChange={(e) =>getAlunoSelected(e as any)}
-                    closeMenuOnSelect={false}
-                    components={animatedComponents}
-                    placeholder="Selecione 5 alunos"
-                    isMulti
-                    options={students?.map((student) =>{
-                      return {
-                        value:student.id,
-                        label:student.name
-                      }
-                    })}
-                    className=" select-primary"
-                  />
-                </div>
-
-                </div>
-                <button type='submit' onClick={() =>{setOpenModalCreate(true)}} className="mt-20 btn text-white border-none   bg-secundary hover:bg-secundaryOpacity w-full">CADASTRAR AULA</button>
+                <button type='submit'  onClick={() =>{setOpenModalCreate(true)}}  className="mt-5 btn text-white border-none   bg-secundary hover:bg-secundaryOpacity w-full">CADASTRAR AULA</button>
                 
               </Form>
             </CreateAula>
@@ -350,62 +412,86 @@ const Aulas:React.FC = () =>{
       </header>
 
         
-        { !!aulasAlunos?.length ?
-          <section className=" grid md:grid-cols-2 grid-cols-1 gap-5">{
-            aulasAlunos?.map((aula) =>(
-              <Card key={aula.id}>
-                <h2>{aula.day.toLocaleUpperCase()} - {aula.time} Horas</h2>
-                <ContentCard>
-                  <button style={{marginLeft:"auto"}} className='btn btn-outline btn-accent btn-sm'  onClick={() =>{setOpenRemarcacao({active:true,type:"cancelamentos"})}} >CANCELAR AULA</button>
-                  {aula.studentGang.map((aluno) =>(
-                    <ItemCard className=' md:text-lg text-sm' key={aluno.id}>
-                    <p>{aluno.name}</p>
-                    <p className='actions'>
-                      <span onClick={() =>{
-                        deleteAlunoByAula(aula.id,aluno.id)
-                      }}>
-                        <AiOutlineClose cursor={'pointer'} color="red"/>
-                      </span>
+        { !!turmasAulas?.length ?
+          <section className=" grid md:grid-cols-1 grid-cols-1 gap-5">{
+            turmasAulas?.map((turma) =>(
+              <Turma>
+                <h3>
+                  Turma:
+                  {turma.name}
+                </h3>
+                <section className=" grid md:grid-cols-2 grid-cols-1 gap-5">
 
-                      <span onClick={() =>{
-                        getAluno({...aluno,gang_id:aula.id,type:'reposicao'})
-                      }}>
-                        R
-                      </span>
-                      <span onClick={() =>{
-                        getAluno({...aluno,gang_id:aula.id,type:'falta'})
-                      }}>
-                        F
-                      </span>
-                    </p>
-                    </ItemCard>
+                  {turma.gangs.map((gang) =>(
+                    <Card key={turma.id}>
+                    <h2>{gang.day.toLocaleUpperCase()} - {gang.time} Horas</h2>
+                    <ContentCard>
+                      <button style={{marginLeft:"auto"}} className='btn btn-outline btn-accent btn-sm'  onClick={() =>{setOpenRemarcacao({active:true,type:"cancelamentos"})}} >CANCELAR AULA</button>
+                      {gang.studentGang.map((aluno) =>(
+                        <ItemCard className=' md:text-lg text-sm' key={aluno.id}>
+                        <p>{aluno.name}</p>
+                        <p className='actions'>
+                          <span onClick={() =>{
+                            deleteAlunoByAula(gang.id,aluno.id)
+                          }}>
+                            <AiOutlineClose cursor={'pointer'} color="red"/>
+                          </span>
+
+                          <span onClick={() =>{
+                            getAluno({...aluno,gang_id:gang.id,type:'reposicao'})
+                          }}>
+                            R
+                          </span>
+                          <span onClick={() =>{
+                            getAluno({...aluno,gang_id:gang.id,type:'falta'})
+                          }}>
+                            F
+                          </span>
+                        </p>
+                        </ItemCard>
+                      ))}
+                        
+                      {(gang.studentGang?.length < 5 && aulaId !== gang.id ) && 
+                        <div onClick={() =>{
+                          setAulaId(gang.id)}} className='flex items-center mt-5  justify-center hover:scale-105 transition cursor-pointer'>
+                          <MdAdd/>
+                          Adicionar Aluno
+                        </div>
+                      }
+
+                      {(aulaId === gang.id && !!aulaId)  &&
+                        <ItemCard>
+                        <select onChange={(e) =>{setAlunoChangedByAula(e.target.value)}} className='flex-1 m-2 select select-sm select-primary w-full max-w-[300px] h-6' name='aluno'>
+                        <option selected disabled hidden>Selecione um aluno</option>
+
+                        {students?.map((student) =>(
+                          <option className={gang.id.toString()} value={student.id}>{student.name}</option>
+                        ))}
+                        </select>
+
+                        <div className='actionsAddAluno'>
+                          <MdCheck onClick={ () =>{addAlunoByAula(gang.id,gang.day,gang.time)}}/>
+                          <MdClose onClick={() =>setAulaId(null)}/>
+                        </div>
+                        </ItemCard>
+                      }
+
+                    </ContentCard>          
+                  </Card>
+
                   ))}
-                    
-                  {(aula.studentGang?.length < 5 && aulaId !== aula.id ) && 
-                    <div onClick={() =>{
-                      setAulaId(aula.id)}} className='flex items-center mt-5  justify-center hover:scale-105 transition cursor-pointer'>
-                      <MdAdd/>
-                      Adicionar Aluno
-                    </div>
-                  }
+                  
+                </section>
+              </Turma>
 
-                  {(aulaId === aula.id && !!aulaId)  &&
-                    <ItemCard>
-                    <select onChange={(e) =>{setAlunoChangedByAula(e.target.value)}} className='flex-1 m-2 select select-sm select-primary w-full max-w-[300px] h-6' name='aluno'>
-                    {students?.map((student) =>(
-                      <option className={aula.id.toString()} value={student.id}>{student.name}</option>
-                    ))}
-                    </select>
 
-                    <div className='actionsAddAluno'>
-                      <MdCheck onClick={ () =>{addAlunoByAula(aula.id,aula.day,aula.time)}}/>
-                      <MdClose onClick={() =>setAulaId(null)}/>
-                    </div>
-                    </ItemCard>
-                  }
 
-                </ContentCard>          
-              </Card>
+
+
+
+
+
+        
             ))}
           </section>
 

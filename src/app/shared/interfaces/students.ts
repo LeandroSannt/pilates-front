@@ -57,6 +57,7 @@ export interface StudentsAulasProps{
     id:number
     time:string
     day:string
+    classe_id:number
     studentGang:Array<{
       id:number
       name:string
@@ -137,4 +138,12 @@ export interface FinancialProps{
   sum_amount_receivable:string
   sum_value:string
   studentExpiration:StudentExpirationProps[]
+}
+
+
+export interface IClasseGangs{
+  id:number
+  name:string
+  status:string
+  gangs:StudentsAulasProps[]
 }

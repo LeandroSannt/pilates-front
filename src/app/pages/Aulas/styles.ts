@@ -127,6 +127,8 @@ export const ItemCard = styled.div`
 
 export const CreateAula = styled.div`
   width: 100%;
+  overflow: auto;
+  padding: 0 5px;
 
   .alertMessage{
   }
@@ -146,4 +148,13 @@ export const CreateAula = styled.div`
     
   }
   
+`
+
+export const Turma = styled.div`
+width: 100%;
+box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
+padding: 15px;
+
+margin-bottom: 20px;
+border-radius: 8px;
 `
