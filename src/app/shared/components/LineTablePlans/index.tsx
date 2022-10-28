@@ -40,7 +40,7 @@ const LineTable:React.FC<LineProps> = ({setOpenModal,value,updateDate,id,name,pe
 
         <span>
           <button onClick={async () =>{
-            navigate(`planos/${id}`)
+            navigate(`dashboard/planos/${id}`)
             setOpenModal(true)
             }} className="btn btn-active btn-primary text-white transition btn-sm hover:bg-inherit hover:text-slate-500">Atualizar plano</button>
         </span>
