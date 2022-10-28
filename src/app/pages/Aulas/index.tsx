@@ -11,7 +11,6 @@ import makeAnimated from 'react-select/animated';
 
 import { api } from '../../../config/api';
 import { queryClient } from '../../../config/query-Client';
-import { Input } from '../../shared/components/Form/Input/InputText';
 import { DefaultModal } from '../../shared/components/modals/DefaultModal';
 import { IClasseGangs, StudentProps } from '../../shared/interfaces/students';
 import { popError } from '../../shared/utils/popError';
@@ -28,11 +27,7 @@ interface IAlunoProps{
   type:string
   gang_id?:number
 }
-
-
-  interface DataProps{
-    name:string
-  }
+ 
 
   interface selectProps{
     value:number
@@ -46,7 +41,6 @@ interface IAlunoProps{
 
   }
 
-
   interface CancelProps{
     type?:string
     active:boolean
@@ -57,11 +51,6 @@ interface IAlunoProps{
     time?:string
   }
 
-
-  const nameForm= [
-    {day:'dia',time:"horario"},
-    {day:'dia',time:"horario"},
-  ]
 
 const Aulas:React.FC = () =>{
   const animatedComponents = makeAnimated();
@@ -111,7 +100,7 @@ const Aulas:React.FC = () =>{
     setSendAlunos(alunos)
   }
 
-  const handleSubmit = async (data:DataProps) =>{
+  const handleSubmit = async () =>{
     try{
       const alunoIds = sendAlunos.map((aluno) =>{
         return aluno!.value
@@ -121,7 +110,6 @@ const Aulas:React.FC = () =>{
       await api.post('/classes/storeGangs',{
         student_id:alunoIds,
         gangs:nameForm,
-        name:data.name
       })  
 
       await queryClient.invalidateQueries("aulasAlunos")
@@ -310,13 +298,6 @@ const Aulas:React.FC = () =>{
             <CreateAula>
               <Form className=''  onSubmit={handleSubmit}>
                 <div>
-                  <div className='flex justify-between gap-5 w-full'>
-                    <div className='mb-5 w-full'>
-                      <label htmlFor="">Nome da Turma</label>
-                      <Input placeholder='Nome da turma' name={'name'}/>
-
-                    </div>
-                  </div>
 
                   <h1 className='mb-5'>Aulas</h1>
 

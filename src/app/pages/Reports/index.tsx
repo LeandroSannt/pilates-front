@@ -1,14 +1,17 @@
-import React from 'react'
+import moment from 'moment'
+import React, { useState } from 'react'
 import { useQuery } from 'react-query'
 import SyncLoader from 'react-spinners/SyncLoader'
+import { Tab, TabList, TabPanel, Tabs } from 'react-tabs'
 
 import { api } from '../../../config/api'
-import { FinancialProps } from '../../shared/interfaces/students'
-import { downloadFile } from '../../shared/utils/downloadFile'
+import { FinancialProps, StudentProps } from '../../shared/interfaces/students'
+import { birthDate, financialReport } from './main'
 import { Container } from './styles'
 
-const Reports:React.FC = () =>{
+import 'react-tabs/style/react-tabs.css'
 
+const Financial:React.FC = () =>{
   const {data:financial,isLoading} = useQuery<FinancialProps>(['financial'], async () =>{
     const response = await api.get('/report/financial')  
   
@@ -16,55 +19,23 @@ const Reports:React.FC = () =>{
   })
 
   const handleExport = async () =>{
-    const response = await api.get('/report/financial-download',{
-      responseType:'blob',
-    })
-
-    const blob = new Blob([response.data]);
-    downloadFile(blob, 'teste' + '.pdf');
-
-    return response.data
-
+    if(financial){
+      financialReport(financial)
+    }
   }
-
-  //  const downloadFile = async (response:any, filename/*: string*/ = 'download') => {
-  //   const c = await response
-  //   const blob = new Blob([c], { type: 'application/pdf' });
-  //   const link = document.createElement('a');
-  //   link.href = window.URL.createObjectURL(blob);
-  //   link.download = `${filename}-${+new Date()}.pdf`;
-  //   link.click();
-  // };
-
-
-  const onButtonClick = () => {
-    // using Java Script method to get PDF file
-    fetch('http://localhost:3333/report/financial-download').then(response => {
-        response.blob().then(blob => {
-            // Creating new object of PDF file
-            const fileURL = window.URL.createObjectURL(blob);
-            // Setting various property values
-            let alink = document.createElement('a');
-            alink.href = fileURL;
-            alink.download = 'SamplePDF.pdf';
-            alink.click();
-        })
-    })
-}
 
 
   if(isLoading){
-
     return(
       <div className='flex items-center justify-center mt-28'>
         <SyncLoader  color='#1fcab3'/>
       </div> 
-      )
+    )
   }
 
   return(
     <Container>
-      <h1 className='font-bold text-lg mb-5'>Relatorio financeiro</h1>
+      <h1 className='font-bold text-lg mb-5 mt-5'>Relatorio Financeiro</h1>
       <div className='md:flex-row flex-col flex justify-between'>
 
       <div className='flex flex-col  mb-5'>
@@ -114,6 +85,107 @@ const Reports:React.FC = () =>{
         </table>
       </div>
     </Container>
+
+)}
+
+
+const BirthDate:React.FC = () =>{
+  const [month,setMonth] = useState(new Date().getMonth())
+  const {data:students,isLoading} = useQuery<StudentProps[]>(['studentBirthDate',month], async () =>{
+    const response = await api.get('/studentsbirth/birthDate',{
+      params:{
+        month:month
+      }
+    })  
+  
+    return response.data
+  })
+
+  const handleExport = async () =>{
+    if(students){
+      birthDate(students)
+    }
+  }
+
+  if(isLoading){
+    <div className='flex items-center justify-center mt-28'>
+      <SyncLoader  color='#1fcab3'/>
+    </div> 
+  }
+
+  return(
+    <Container>
+      <div className='md:flex-row flex-col items-center flex justify-between mt-5'>
+        <h1 className='font-bold text-lg mb-5'>Aniversariantes do Mês</h1>
+        <div className='flex md:flex-col flex-row '>
+          <button onClick={handleExport}  className="mb-5 btn text-white border-none  bg-secundary hover:bg-secundaryOpacity">Exportar relatorio</button>
+
+          <select className="mb-5 md:ml-0 ml-5 select select-primary "  defaultValue={new Date().getMonth()} onChange={(event) =>{setMonth(Number(event.target.value))}} name="" id="">
+          <option value="1">Janeiro</option>
+          <option value="2">Fevereiro</option>
+          <option value="3">Março</option>
+          <option value="4">Abril</option>
+          <option value="5">Maio</option>
+          <option value="6">Junho</option>
+          <option value="7">Julho</option>
+          <option value="8">Agosto</option>
+          <option value="9">Setembro</option>
+          <option value="10">Outubro</option>
+          <option value="11">Novembro</option>
+          <option value="12">Dezembro</option>
+          </select>
+        </div>
+      </div>
+
+      
+
+
+      <div className="overflow-x-auto">
+        <table className="table w-full">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Telefone</th>
+              <th>Data de anivesário</th>
+            </tr>
+          </thead>
+          <tbody className=''>
+
+            {students?.map((student) =>(
+              <tr>
+                <td>{student.name}</td>
+                <td>{student.telephone}</td>
+                <td>{moment(student.birth_date).format('DD/MM')}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </Container>
+  )
+}
+
+
+
+
+
+
+const Reports:React.FC = () =>{
+
+  return(
+    <Tabs>
+    <TabList>
+      <Tab>Financeiro</Tab>
+      <Tab>Anivesariantes</Tab>
+    </TabList>
+
+    <TabPanel>
+      <Financial/>
+    </TabPanel>
+    <TabPanel>
+      <BirthDate/>
+    </TabPanel>
+  </Tabs>
   )
 }
 export default Reports
