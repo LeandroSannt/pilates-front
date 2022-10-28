@@ -96,7 +96,7 @@ const Details:React.FC = () =>{
 
       popSucess('Aluno registrado com sucesso')
       
-      navigate('/alunos')
+      navigate('/dashboard/alunos')
       await queryClient.invalidateQueries('students')
 
     }catch(err:any){
@@ -209,7 +209,7 @@ const Details:React.FC = () =>{
         <div className="flex justify-between items-center cursor-pointer">
 
         <button className="btn text-white border-none  bg-secundary hover:bg-secundaryOpacity">{id ?'ATUALIZAR ALUNO' : 'CADASTRAR ALUNO'}</button>
-        <span onClick={() =>{navigate("/alunos")}}>Voltar</span>        
+        <span onClick={() =>{navigate("/dashboard/alunos")}}>Voltar</span>        
         </div>
       </Form>
     </Container>

@@ -1,3 +1,6 @@
+import { useWindowWidth } from '@react-hook/window-size';
+import teacher1 from "/assets/pilates1.jpg";
+import teacher2 from "/assets/pilates2.jpg";
 import React from 'react';
 import { AnimationOnScroll } from 'react-animation-on-scroll';
 import { FiFacebook, FiInstagram } from 'react-icons/fi';
@@ -15,6 +18,11 @@ import "swiper/css/pagination";
 
 const Home:React.FC = () =>{
 
+  const onlyWidth = useWindowWidth()
+
+  console.log({onlyWidth})
+
+
   return(
 
     
@@ -27,7 +35,7 @@ const Home:React.FC = () =>{
           <ul className="grid">
           <li><Link activeClass="title" to="home" spy={true} smooth={true} duration={250} >Início</Link></li>
           <li><Link activeClass="title" to="about" spy={true} smooth={true} duration={250} >Sobre</Link></li>
-          <li><Link activeClass="title" to="services" spy={true} smooth={true} duration={250} >Serviços</Link></li>
+          <li><Link activeClass="title" to="services" spy={true} smooth={true} duration={250} >Beneficios</Link></li>
           <li><Link activeClass="title" to="testimonials" spy={true} smooth={true} duration={250} >Depoimentos</Link></li>
           <li><Link activeClass="title" to="contact" spy={true} smooth={true} duration={250} >Contato</Link></li>
           </ul>
@@ -44,20 +52,24 @@ const Home:React.FC = () =>{
             <div className="container grid">
               <div className="image">
                 <img
-                  src="https://media.istockphoto.com/photos/young-woman-looking-for-changes-trying-new-hairstyle-at-beauty-salon-picture-id1271712634?b=1&k=20&m=1271712634&s=170667a&w=0&h=Ud0INi4oFWOP0qOC7Nrg1feH3jeGzuhUbUwZ7rFOooU="
-                  alt="Mulher mexendo no cabelo de outra mulher"
+                  src={teacher2}
+                  alt="duas pessoas fazendo pilates"
                 />
               </div>
 
               <div className="text">
-                <h2 className="title">Saúde natural para os seus cabelos</h2>
+                <h2 className="title">Pilates é a completa coordenação de corpo, mente e espírito.</h2>
 
                 <p>
-                  Um salão exclusivo em São Paulo, especializado em tratamentos
-                  naturais
+                  Pilates não é sobre ser melhor que os outros. É sobre ser melhor do que costumava ser.
                 </p>
 
-                <a className="button" href="#">Agendar um horário</a>
+                <a
+                href="https://api.whatsapp.com/send?phone=+5511998666219&text=Oi, gostaria de agendar um horário."
+                className="button"
+                target="_blank"
+                ><i className="icon-whatsapp"></i>Entrar em contato</a
+              >
               </div>
             </div>
           </section>
@@ -71,7 +83,7 @@ const Home:React.FC = () =>{
               <div className="container grid">
                 <div className="image">
                   <img
-                    src="https://images.unsplash.com/photo-1559599101-f09722fb4948?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8aGFpcmRyZXNzZXJ8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=60"
+                    src={teacher1}
                     alt="Três mulheres sorrindo"
                   />
                 </div>
@@ -105,8 +117,6 @@ const Home:React.FC = () =>{
             </section>
           </Element>
         </AnimationOnScroll>
-
-
         <div className="divider-2"></div>
 
         <AnimationOnScroll animateOnce   animateIn="animate__fadeIn">
@@ -114,8 +124,8 @@ const Home:React.FC = () =>{
             <section className="section" id="services">
               <div className="container grid">
                 <header>
-                  <h2 className="title">Serviços</h2>
-                  <p className="subtitle">
+                  <h2 className="title  text-center">Beneficios</h2>
+                  <p className="subtitle text-center">
                     Com mais de 10 anos no mercado, o <strong> Beautysalon</strong> já
                     conquistou clientes de inúmeros países com seus tratamentos
                     exclusivos e totalmente naturais
@@ -165,7 +175,7 @@ const Home:React.FC = () =>{
                   <h2 className="title">Depoimentos de quem já passou por aqui</h2>
                 </header>
                 <Swiper
-                  slidesPerView={2}
+                  slidesPerView={onlyWidth >  720 ? 2 : 1}
                   spaceBetween={30}
                   keyboard={{
                     enabled: true,
@@ -340,7 +350,7 @@ const Home:React.FC = () =>{
               </p>
 
               <a
-                href="https://api.whatsapp.com/send?phone=+5511998456754&text=Oi, gostaria de agendar um horário."
+                href="https://api.whatsapp.com/send?phone=+5511998666219&text=Oi, gostaria de agendar um horário."
                 className="button"
                 target="_blank"
                 ><i className="icon-whatsapp"></i>Entrar em contato</a
@@ -349,9 +359,9 @@ const Home:React.FC = () =>{
 
             <div className="links">
               <ul className="grid">
-                <li><i className="icon-phone"></i> 11 99845-6754</li>
-                <li><i className="icon-map-pin"></i> R. Amauri Souza, 346</li>
-                <li><i className="icon-mail"></i>contato@beautysalon.com</li>
+                <li><i className="icon-phone"></i> 85 99866-6219</li>
+                <li><i className="icon-map-pin"></i> R. Cônego Braveza, 757</li>
+                <li><i className="icon-mail"></i>cintia.sfreitasfisio@gmail.com</li>
               </ul>
             </div>
           </div>

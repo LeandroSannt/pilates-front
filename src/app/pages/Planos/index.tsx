@@ -84,7 +84,7 @@ const Planos:React.FC = () =>{
         await updatePlan(data)
         popSucess('Plano atualizado com sucesso')
         setOpenModal(false)
-        navigate('/planos')
+        navigate('/dashboard/planos')
         
       }else{
         await createPlan(data)
@@ -119,7 +119,7 @@ const Planos:React.FC = () =>{
               <span onClick={() =>{
                 setOpenModal(false)
                 setTimeout(() =>{
-                  navigate('/planos')
+                  navigate('/dashboard/planos')
                 },300)
                 }
                 }><AiOutlineClose cursor={'pointer'}/></span>
@@ -171,7 +171,7 @@ const Planos:React.FC = () =>{
         </div>
 
           <button onClick={() =>{
-            navigate('/planos')
+            navigate('/dashboard/planos')
             setOpenModal(true)
           }}
            className="btn text-white border-none  bg-secundary hover:bg-secundaryOpacity">CADASTRAR PLANO</button>

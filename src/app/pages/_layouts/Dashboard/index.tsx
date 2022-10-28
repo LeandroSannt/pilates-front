@@ -1,13 +1,7 @@
-import React, { useEffect } from 'react'
-import { Outlet, useNavigate } from 'react-router-dom'
+import React from 'react'
+import { Outlet } from 'react-router-dom'
 
 const Dashboard:React.FC = () =>{
-  const navigate = useNavigate()
-
-  useEffect(() =>{
-    navigate('/aulas')
-  },[])
-
   return(
     <>
     <Outlet/>

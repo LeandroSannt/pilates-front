@@ -123,6 +123,14 @@ export const Container = styled.div`
   margin-right: 1.5rem;
 }
 
+
+@media(max-width:720px){
+  .container {
+  margin-left: 0rem;
+  padding: 0 10px;
+}
+}
+
 .grid {
   display: grid;
   gap: 2rem;

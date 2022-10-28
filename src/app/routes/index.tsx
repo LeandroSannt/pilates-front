@@ -19,6 +19,15 @@ const AppRoutes = () => {
               <Route
                 path="/"
                 element={
+                  <Home/>
+                }
+                >
+
+              </Route>
+
+              <Route
+                path="/dashboard"
+                element={
                 <PrivateRoute>
                   <Dashboard/>
                 </PrivateRoute>
@@ -35,11 +44,8 @@ const AppRoutes = () => {
                 <Route path="alunos/:id/edit" element={<Details/>}/>
               </Route>
 
-              <Route path='/home' element={
-                <Home/>
-              }>
+
                 
-              </Route>
               
           </Routes>
         </BrowserRouter>
