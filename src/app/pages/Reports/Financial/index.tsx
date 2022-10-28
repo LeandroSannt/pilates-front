@@ -1,6 +1,6 @@
 import moment from 'moment';
-import pdfMakee from 'pdfmake/build/pdfmake';
-import { pdfMake } from 'pdfmake/build/vfs_fonts';
+import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
 import { TDocumentDefinitions } from 'pdfmake/interfaces';
 
 import { FinancialProps } from '../../../shared/interfaces/students';
@@ -8,7 +8,7 @@ import { FinancialProps } from '../../../shared/interfaces/students';
 import 'moment/locale/pt-br';
 
 const financialReport = (data:FinancialProps) =>{
-  pdfMakee.vfs = pdfMake.vfs
+  pdfMake.vfs = pdfFonts.pdfMake.vfs
 
   const body:any = []
 
@@ -61,7 +61,7 @@ const financialReport = (data:FinancialProps) =>{
      }
   }
 
-  pdfMakee.createPdf(docDefinitions).download(`Anivesariantes do mes`)
+  pdfMake.createPdf(docDefinitions).download(`Anivesariantes do mes`)
 
 }
 export { financialReport };
