@@ -1,6 +1,5 @@
 import moment from 'moment';
 import pdfMake from 'pdfmake/build/pdfmake';
-import pdfFonts from 'pdfmake/build/vfs_fonts';
 import { TDocumentDefinitions } from 'pdfmake/interfaces';
 
 import { FinancialProps } from '../../../shared/interfaces/students';
@@ -8,7 +7,6 @@ import { FinancialProps } from '../../../shared/interfaces/students';
 import 'moment/locale/pt-br';
 
 const financialReport = (data:FinancialProps) =>{
-  pdfMake.vfs = pdfFonts.pdfMake.vfs
 
   const body:any = []
 
