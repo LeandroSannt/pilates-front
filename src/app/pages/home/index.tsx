@@ -6,8 +6,6 @@ import { Element, Link } from 'react-scroll';
 import { Keyboard, Navigation, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import teacher1 from "../../../public/assets/pilates1.jpg";
-import teacher2 from "../../../public/assets/pilates2.jpg";
 import { Container } from './styles';
 
 import "./carrousel.css";
@@ -52,7 +50,7 @@ const Home:React.FC = () =>{
             <div className="container grid">
               <div className="image">
                 <img
-                  src={teacher2}
+                  src={'/assets/pilates2.jpg'}
                   alt="duas pessoas fazendo pilates"
                 />
               </div>
@@ -83,7 +81,7 @@ const Home:React.FC = () =>{
               <div className="container grid">
                 <div className="image">
                   <img
-                    src={teacher1}
+                    src={'/assets/pilates1.jpg'}
                     alt="Três mulheres sorrindo"
                   />
                 </div>
