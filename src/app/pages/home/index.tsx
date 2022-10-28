@@ -1,5 +1,4 @@
 import { useWindowWidth } from '@react-hook/window-size';
-import teacher2 from "/assets/pilates2.jpg";
 import React from 'react';
 import { AnimationOnScroll } from 'react-animation-on-scroll';
 import { FiFacebook, FiInstagram } from 'react-icons/fi';
@@ -8,6 +7,7 @@ import { Keyboard, Navigation, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import teacher1 from "../../../public/assets/pilates1.jpg";
+import teacher2 from "../../../public/assets/pilates2.jpg";
 import { Container } from './styles';
 
 import "./carrousel.css";
