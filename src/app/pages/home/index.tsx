@@ -50,7 +50,7 @@ const Home:React.FC = () =>{
             <div className="container grid">
               <div className="image">
                 <img
-                  src={'/assets/pilates2.jpg'}
+                  src={'../../../assets/pilates2.jpg'}
                   alt="duas pessoas fazendo pilates"
                 />
               </div>
@@ -81,7 +81,7 @@ const Home:React.FC = () =>{
               <div className="container grid">
                 <div className="image">
                   <img
-                    src={'/assets/pilates1.jpg'}
+                    src={'../../..//assets/pilates1.jpg'}
                     alt="Três mulheres sorrindo"
                   />
                 </div>
