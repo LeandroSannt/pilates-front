@@ -18,12 +18,12 @@ interface LineProps{
   currentMonthPlan:string
   renovation(value:number):void
   expiration_date:string
+  day?:string
+  month?:string
 }
 
-const LineTable:React.FC<LineProps> = ({renovation,expiration_date,birth_date,plan_expiration_day,id,name,status,planTotalMonths,currentMonthPlan}) =>{
+const LineTable:React.FC<LineProps> = ({renovation,expiration_date,birth_date,plan_expiration_day,id,name,status,planTotalMonths,day,month}) =>{
   const navigate = useNavigate()
-
-
   return(
     
     <Container >
@@ -35,7 +35,7 @@ const LineTable:React.FC<LineProps> = ({renovation,expiration_date,birth_date,pl
           <div> 
             <span className='date response-none-620'>
               <BiCake/>
-              <p>{birth_date ?  moment(birth_date).format('DD/MM') : 'Sem data'}</p>
+              <p>{day || month ? `${day} - ${month}`  : 'Sem data'}</p>
             </span>
 
             <span className='date response-none-820 response-none-1200'>
@@ -71,7 +71,7 @@ const LineTable:React.FC<LineProps> = ({renovation,expiration_date,birth_date,pl
             <span className='ml-0  mb-2 date response-none-620-active'>
               <BiCake/>
 
-              <p> {birth_date ?  moment(birth_date).format('DD/MM') : 'Sem data'}</p>
+              <p>{day || month ? `${day} - ${month}`  : 'Sem data'}</p>
             </span>
 
             <span className= 'ml-0  mb-2 date response-none-820-active response-none-1200-active'>

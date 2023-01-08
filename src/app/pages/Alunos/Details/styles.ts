@@ -45,3 +45,7 @@ label{
   font-weight: 400;
 }
 `
+
+export const InputBirthDate = styled.input`
+outline: none;
+`

@@ -200,7 +200,6 @@ const Aulas:React.FC = () =>{
           observation:gangProps?.observation,
           date_lacks:moment(gangProps?.date).format()
         })
-        console.log(result)
 
         popSucess(`Reposição marcada para todos os alunos de ${moment(gangProps?.date).format('DD/MM/YYYY')}`)
       }

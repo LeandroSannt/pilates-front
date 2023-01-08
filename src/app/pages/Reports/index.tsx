@@ -1,15 +1,19 @@
-import moment from 'moment'
 import React, { useState } from 'react'
 import { useQuery } from 'react-query'
 import SyncLoader from 'react-spinners/SyncLoader'
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs'
+import {getMonth} from 'date-fns'
 
 import { api } from '../../../config/api'
 import { FinancialProps, StudentProps } from '../../shared/interfaces/students'
 import { birthDate, financialReport } from './main'
 import { Container } from './styles'
+import {monthsPerYear} from '../../shared/utils/monthPerYear'
+import 'moment/dist/locale/pt-br';
+import moment from 'moment'; 
 
 import 'react-tabs/style/react-tabs.css'
+
 
 const Financial:React.FC = () =>{
   const {data:financial,isLoading} = useQuery<FinancialProps>(['financial'], async () =>{
@@ -90,7 +94,10 @@ const Financial:React.FC = () =>{
 
 
 const BirthDate:React.FC = () =>{
-  const [month,setMonth] = useState(new Date().getMonth())
+  const currentMonth = moment().format('MMMM')
+  const [month,setMonth] = useState(currentMonth)
+
+  const months = monthsPerYear()
   const {data:students,isLoading} = useQuery<StudentProps[]>(['studentBirthDate',month], async () =>{
     const response = await api.get('/studentsbirth/birthDate',{
       params:{
@@ -117,28 +124,18 @@ const BirthDate:React.FC = () =>{
     <Container>
       <div className='md:flex-row flex-col items-center flex justify-between mt-5'>
         <h1 className='font-bold text-lg mb-5'>Aniversariantes do Mês</h1>
-        <div className='flex md:flex-col flex-row '>
-          <button onClick={handleExport}  className="mb-5 btn text-white border-none  bg-secundary hover:bg-secundaryOpacity">Exportar relatorio</button>
+        <div className='flex md:flex-row flex-col md:gap-5 md:w-max w-full  '>
+          <button onClick={handleExport}  className="mb-5 btn text-white border-none  bg-secundary hover:bg-secundaryOpacity">Exportar Relatorio </button>
 
-          <select className="mb-5 md:ml-0 ml-5 select select-primary "  defaultValue={new Date().getMonth()} onChange={(event) =>{setMonth(Number(event.target.value))}} name="" id="">
-          <option value="1">Janeiro</option>
-          <option value="2">Fevereiro</option>
-          <option value="3">Março</option>
-          <option value="4">Abril</option>
-          <option value="5">Maio</option>
-          <option value="6">Junho</option>
-          <option value="7">Julho</option>
-          <option value="8">Agosto</option>
-          <option value="9">Setembro</option>
-          <option value="10">Outubro</option>
-          <option value="11">Novembro</option>
-          <option value="12">Dezembro</option>
+          <select className=" mb-5 md:ml-0  select select-primary " value={month} onChange={(event) =>{setMonth(event.target.value)}} name="" id="">
+          {months.map((month) =>{
+            return(
+              <option value={month.month}>{month.month}</option>
+              )
+          })}
           </select>
         </div>
       </div>
-
-      
-
 
       <div className="overflow-x-auto">
         <table className="table w-full">
@@ -155,7 +152,7 @@ const BirthDate:React.FC = () =>{
               <tr>
                 <td>{student.name}</td>
                 <td>{student.telephone}</td>
-                <td>{moment(student.birth_date).format('DD/MM')}</td>
+                <td>{`${student.day_birth} - ${student.month_birth}`}</td>
               </tr>
             ))}
           </tbody>
@@ -166,17 +163,13 @@ const BirthDate:React.FC = () =>{
 }
 
 
-
-
-
-
 const Reports:React.FC = () =>{
 
   return(
     <Tabs>
     <TabList>
       <Tab>Financeiro</Tab>
-      <Tab>Anivesariantes</Tab>
+      <Tab>Aniversariantes</Tab>
     </TabList>
 
     <TabPanel>

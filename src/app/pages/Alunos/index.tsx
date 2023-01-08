@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
 import { Link } from 'react-router-dom'
 import SyncLoader from "react-spinners/SyncLoader"
@@ -37,6 +37,7 @@ const Alunos:React.FC = () =>{
       setStudents(data.data)
    })
 
+
   const {data:plans} = useQuery<PlanProps[]>(['plans'], async () =>{
     const response = await api.get('/plans')  
   
@@ -56,6 +57,8 @@ const Alunos:React.FC = () =>{
     await queryClient.invalidateQueries("students")
   }
 
+
+
   return(
     <Container>
       <main>
@@ -68,7 +71,8 @@ const Alunos:React.FC = () =>{
             <input onChange={(e) =>{setFilters({...filters,studantName:e.target.value})}} type="text" placeholder="Pesquisar aluno" className="input input-bordered input-primary w-full " />
           </div>
           <div>
-            <label htmlFor="">Status</label>            <select onChange={(e) =>{setFilters({...filters,status:e.target.value})}} className="select select-primary w-full ">
+            <label htmlFor="">Status</label>            
+            <select onChange={(e) =>{setFilters({...filters,status:e.target.value})}} className="select select-primary w-full ">
                 <option value={'todos'}>Todos</option>
                 <option value={'ativo'}>Ativo</option>
                 <option value={'inativo'}>inativo</option>
@@ -105,6 +109,8 @@ const Alunos:React.FC = () =>{
               <LineTable 
               renovation ={renovationPlan} 
               key={student.id} 
+              day={student.day_birth}
+              month={student.month_birth}
               currentMonthPlan={student.current_month_plan} 
               planTotalMonths={student.plan.amount_installments} 
               status={student.status} 

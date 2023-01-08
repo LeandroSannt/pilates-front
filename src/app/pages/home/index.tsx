@@ -18,9 +18,6 @@ const Home:React.FC = () =>{
 
   const onlyWidth = useWindowWidth()
 
-  console.log({onlyWidth})
-
-
   return(
 
     

@@ -40,6 +40,9 @@ export interface StudentProps{
   telephone_emergency:string 
   updated_at:string 
   date_start_plan:string
+  day_birth?:string
+  month_birth?:string
+
 }
 
 export interface StudentsPaginated{

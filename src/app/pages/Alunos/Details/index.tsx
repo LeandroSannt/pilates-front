@@ -1,7 +1,7 @@
 import { FormHandles } from "@unform/core";
 import { Form } from "@unform/web";
 import moment from "moment";
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useQuery } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import { SyncLoader } from "react-spinners";
@@ -16,7 +16,8 @@ import { PlanProps, StudentProps } from "../../../shared/interfaces/students";
 import getValidationErrors from "../../../shared/utils/getValidationErros";
 import { popError } from "../../../shared/utils/popError";
 import { popSucess } from "../../../shared/utils/popSuccess";
-import { Container, GroupInput } from './styles';
+import { Container, GroupInput, InputBirthDate } from './styles';
+import {monthsPerYear} from '../../../shared/utils/monthPerYear'
 
 type FormData = {
   name: string,
@@ -36,8 +37,14 @@ const Details:React.FC = () =>{
 
 
   const [student,setStudent] = useState<StudentProps>()
+  const [daybirth, setDayBirth] = useState('')
+  const [monthBird, setMonth] = useState('')
+
+  const months = monthsPerYear()
+
+  const [ focusBirthDate,setFocusBirthDate ] = useState(false)
   const {id} = useParams()
-  const {isFetching} = useQuery<StudentProps>('student', async () =>{
+  const {isLoading} = useQuery<StudentProps>('student', async () =>{
     if(id){
       const response = await api.get(`/students/${id}`)  
       return response.data
@@ -46,14 +53,28 @@ const Details:React.FC = () =>{
     }
   }, { onSuccess: (data: StudentProps) => setStudent(data) })
 
+  useEffect(() =>{
+   if(student?.day_birth) setDayBirth(student?.day_birth)
+   if(student?.month_birth) setMonth(student?.month_birth)
+  },[student?.day_birth,student?.month_birth])
+
 
   const createStudent = async (data:FormData) =>{
-   const response = await api.post('students/store-current-month',data)
+   const response = await api.post('students/store-current-month',{
+    ...data,
+    day_birth:daybirth,
+    month_birth:monthBird
+  })
    return response
   }
 
   const updateStudant = async (data:FormData) =>{
-    const response = await api.put(`students/${id}/updateStatus`,data)
+    const response = await api.put(`students/${id}`,{
+      ...data,
+      day_birth:daybirth,
+      month_birth:monthBird
+    })
+
     await queryClient.invalidateQueries('student')
     await queryClient.invalidateQueries('students')
     return response
@@ -74,7 +95,7 @@ const Details:React.FC = () =>{
         name:Yup.string().required('Nome do aluno obrigatorio'),
         plan_id:Yup.string().required('Selecione um plano'),
         registration:Yup.string().required('Matricula obrigatoria'),
-        // plan_expiration_day:Yup.string().required('Selecione entre 1 e 31')
+        plan_expiration_day:Yup.string().required('Selecione a data de vencimento')
         
       })
 
@@ -112,7 +133,7 @@ const Details:React.FC = () =>{
     }
   }
 
-  if(isFetching){
+  if(isLoading){
     return(
       <div className='flex items-center justify-center mt-48'>
         <SyncLoader  color='#1fcab3'/>
@@ -122,7 +143,7 @@ const Details:React.FC = () =>{
 
   return(
     <Container>
-      <Form ref={formRef} initialData={{...student,birth_date:moment(student?.birth_date).format('YYYY-MM-DD'),date_start_plan:moment(student?.date_start_plan).format('YYYY-MM-DD')}} onSubmit={handleSubmit}>
+      <Form ref={formRef} initialData={{...student,date_start_plan:moment(student?.date_start_plan).format('YYYY-MM-DD')}} onSubmit={handleSubmit}>
         <section className="mb-5">
           <div className=" flex justify-between items-center">
             <h2>Dados Pessoais</h2>
@@ -143,12 +164,39 @@ const Details:React.FC = () =>{
             <GroupInput>
               <label htmlFor="email">Email</label>
               <Input id="email" name='email' placeholder="Email" />
-            </GroupInput>
+            </GroupInput> 
 
-            <GroupInput>
-              <label  htmlFor="name">Data de anivesario</label>
-              <Input id ="birth_date" name='birth_date' placeholder="data"  type={'text'}/>
-            </GroupInput>
+            <div className="flex gap-5 w-full">
+            <GroupInput className="w-full">
+              <label htmlFor="">Dia e mês do anivesario</label>
+              <div className={`w-full input input-bordered input-primary flex items-center justify-center outline-none ${focusBirthDate && '  ring-1 ring-green-500'}`}>
+                <InputBirthDate
+                  onChange={(e) =>{setDayBirth(e.target.value)}}
+                  onFocus={() =>{setFocusBirthDate(true)}}
+                  onBlur={() => setFocusBirthDate(false)}
+                  id="birth_date"
+                  name='day_birth' 
+                  placeholder="Dia do anivesario"  
+                  className="border-b-2"
+                  value={daybirth}
+                  type={'text'}/>
+                <select
+                  name="month_birth"
+                  value={monthBird}
+                  onChange={(e) =>{setMonth(e.target.value)}}
+                  onFocus={() =>{setFocusBirthDate(true)}}
+                  onBlur={() => setFocusBirthDate(false)}
+                 id="month_birth" >
+                    {months.map((month) =>{
+                      return(
+                        <option key={month.value} value={month.month}>{month.month}</option>
+                        )
+                    })}
+
+                </select>
+              </div>
+            </GroupInput> 
+            </div>
           </div>
 
           <div className="flex-col flex sm:grid-cols-2  mt-5  sm:grid grid-cols-2 gap-5">
@@ -180,7 +228,7 @@ const Details:React.FC = () =>{
               <Select id="plan_id" name={"plan_id"} >
                 {plans?.map((plan) =>{
                   return(
-                    <option value={plan.id}>{plan.name_plan}</option>
+                    <option key={plan.id} value={plan.id}>{plan.name_plan}</option>
                   )
                 })}
               </Select>
