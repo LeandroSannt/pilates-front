@@ -1,22 +1,35 @@
 import { Dialog, Menu, Transition } from '@headlessui/react';
-import { ChevronDownIcon, LogoutIcon, MenuAlt2Icon, XIcon } from '@heroicons/react/outline';
+import {
+  ChevronDownIcon,
+  LogoutIcon,
+  MenuAlt2Icon,
+  XIcon,
+} from '@heroicons/react/outline';
 import { Fragment, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import Logo from '/assets/cintia_logo.png';
 
-import { AulasIcons, PlansIcon, ReportIcon, ResetIcon, User, Users, X } from '../../../shared/components/icons';
+import {
+  AulasIcons,
+  PlansIcon,
+  ReportIcon,
+  ResetIcon,
+  User,
+  Users,
+  X,
+} from '../../../shared/components/icons';
 import { Container } from './style';
 
 const navigation = [
   { name: 'ALUNOS', href: 'alunos', icon: Users, current: true },
   { name: 'PLANOS', href: 'planos', icon: PlansIcon, current: false },
-  { name: 'AULAS', href: 'aulas', icon: AulasIcons, current: false },
-  { name: 'REPOSIÇÕES', href: 'remarcacoes', icon: ResetIcon, current: false },
-  { name: 'FALTAS', href: 'faltas', icon: X, current: false },
-  { name: 'RELATORIO', href: 'relatorio', icon: ReportIcon, current: false },
+  // { name: 'AULAS', href: 'aulas', icon: AulasIcons, current: false },
+  // { name: 'REPOSIÇÕES', href: 'remarcacoes', icon: ResetIcon, current: false },
+  // { name: 'FALTAS', href: 'faltas', icon: X, current: false },
+  // { name: 'RELATORIO', href: 'relatorio', icon: ReportIcon, current: false },
 ];
 
-function classNames(...classes: any[]):any {
+function classNames(...classes: any[]): any {
   return classes.filter(Boolean).join(' ');
 }
 
@@ -35,7 +48,6 @@ export default function Example({ children }: Props) {
             as="div"
             className="relative z-40 lg:hidden"
             onClose={setSidebarOpen}
-
           >
             <Transition.Child
               as={Fragment}
@@ -96,7 +108,9 @@ export default function Example({ children }: Props) {
                         <NavLink
                           key={item.name}
                           to={item.href}
-                          onClick={() =>{setSidebarOpen(false)}}
+                          onClick={() => {
+                            setSidebarOpen(false);
+                          }}
                           className={({ isActive }: any) => {
                             return classNames(
                               isActive
@@ -106,10 +120,8 @@ export default function Example({ children }: Props) {
                             );
                           }}
                         >
-                          <item.icon
-                          />
+                          <item.icon />
                           <p className="lg:ml-2 ml-2">{item.name}</p>
-
                         </NavLink>
                       ))}
                     </nav>
@@ -126,7 +138,7 @@ export default function Example({ children }: Props) {
         {/* Static sidebar for desktop */}
         <div className="hidden lg:flex lg:w-64 lg:flex-col lg:fixed lg:inset-y-0">
           {/* Sidebar component, swap this element with another sidebar if you like */}
-          <div className="flex-1 flex flex-col min-h-0 bg-slate-50 border-r-2" >
+          <div className="flex-1 flex flex-col min-h-0 bg-slate-50 border-r-2">
             <div className="  w-50 h mx-auto flex items-center h-30 flex-shrink-0 px-4 ">
               <img className="h-full w-full" src={`${Logo}`} alt="Workflow" />
             </div>
@@ -145,8 +157,7 @@ export default function Example({ children }: Props) {
                       );
                     }}
                   >
-                    <item.icon
-                    />
+                    <item.icon />
                     <p className="lg:ml-2 ml-2">{item.name}</p>
                   </NavLink>
                 ))}
@@ -220,7 +231,7 @@ export default function Example({ children }: Props) {
 
           <main className="flex-1">
             <div className="py-6">
-              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
+              <div className=" mx-auto px-4 sm:px-6 lg:px-8 ">
                 <div className="py-4">
                   <div className="min-h-[79vh] px-4 py-6 xl:px-8 bg-white10 shadow-3xl-personalized rounded-3xl">
                     {children}
