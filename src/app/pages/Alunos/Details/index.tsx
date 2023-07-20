@@ -31,7 +31,7 @@ type FormData = {
   plan_expiration_day: number;
 };
 
-interface PlanPeriod {
+export interface PlanPeriod {
   startPeriod: string;
   endPeriod: string;
 }
@@ -63,7 +63,7 @@ const Details: React.FC = () => {
   );
 
   const { data: planPeriod } = useQuery<PlanPeriod>(
-    ['student', planId],
+    ['planPeriod', planId],
     async () => {
       if (planId) {
         const response = await api.get(`/plans/${planId}/expiry-period`);
