@@ -3,6 +3,7 @@ import React from 'react';
 import { BiCake } from 'react-icons/bi';
 import { FiEdit } from 'react-icons/fi';
 import { MdOutlineAttachMoney } from 'react-icons/md';
+import { AiFillEye } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 
 import Status from './status';
@@ -144,6 +145,14 @@ const LineTable: React.FC<LineProps> = ({
               }}
             >
               <FiEdit cursor={'pointer'} />
+            </span>
+
+            <span
+              onClick={async () => {
+                navigate(`${id}/detalhes`);
+              }}
+            >
+              <AiFillEye cursor={'pointer'} />
             </span>
           </div>
         </div>

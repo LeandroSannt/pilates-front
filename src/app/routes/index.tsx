@@ -27,7 +27,10 @@ const AppRoutes = () => {
           }
         >
           <Route path="alunos" element={<Alunos />} />
-          <Route path="detalhes" element={<Show />} />
+          <Route
+            path="/dashboard/alunos/:student_id/detalhes"
+            element={<Show />}
+          />
           <Route path="aulas" element={<Aulas />} />
           <Route path="remarcacoes" element={<Remarcacoes />} />
           <Route path="faltas" element={<Faltas />} />
