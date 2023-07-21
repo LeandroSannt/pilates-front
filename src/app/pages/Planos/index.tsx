@@ -173,17 +173,6 @@ const Planos: React.FC = () => {
                         name="amount_installments"
                       />
                     </div>
-
-                    <div className="alertMessage ">
-                      <label htmlFor="" className="text-xs">
-                        Taxa por plano
-                      </label>
-                      <Input
-                        placeholder="Taxa em porcentagem"
-                        type={'number'}
-                        name="percent_rate"
-                      />
-                    </div>
                   </div>
                 )}
                 <button
