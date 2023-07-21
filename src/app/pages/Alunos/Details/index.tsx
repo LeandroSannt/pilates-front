@@ -223,7 +223,7 @@ const Details: React.FC = () => {
                     id="birth_date"
                     name="day_birth"
                     placeholder="Dia do anivesario"
-                    className=""
+                    className="w-full"
                     value={daybirth}
                     type={'text'}
                   />

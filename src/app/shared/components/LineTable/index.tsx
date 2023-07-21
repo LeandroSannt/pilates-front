@@ -69,7 +69,7 @@ const LineTable: React.FC<LineProps> = ({
               </p>
             </span>
 
-            <span className=" ml-0  whitespace-nowrap response-none-1200-active">
+            <span className=" ml-0  whitespace-nowrap  response-none-1200">
               {plan}
             </span>
 
