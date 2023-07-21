@@ -135,7 +135,7 @@ const Alunos: React.FC = () => {
             <div className="flex items-center justify-center mt-28">
               <SyncLoader color="#1fcab3" />
             </div>
-          ) : !!!students.length ? (
+          ) : !!students.length ? (
             studantesPaginated?.data?.map((student) => {
               return (
                 <LineTable
